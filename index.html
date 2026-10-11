@@ -1570,17 +1570,10 @@ async function handleContactSubmit(e) {
     }).catch(function(){});
   }
 
-  // Opening ping after 3s (same as before — confirmed working)
-  setTimeout(function(){
-    fetch('https://ipapi.co/json/').then(r=>r.json()).then(function(geo){
-      geoLoc = (geo.city||'?')+', '+(geo.region||'?')+', '+(geo.country_name||'?');
-      var mob = /Mobi|Android/i.test(navigator.userAgent)?'📱 Mobile':'🖥 Desktop';
-      var ref = document.referrer?document.referrer.replace(/^https?:\/\//,'').split('/')[0]:'Direct';
-      tg('👁 *Portfolio opened*\n📍 '+geoLoc+'\n'+mob+' · '+screen.width+'×'+screen.height+'\n🌐 Via: '+ref+'\n🕒 '+new Date().toLocaleString('en-IN',{timeZone:'Asia/Kolkata'}));
-    }).catch(function(){
-      tg('👁 *Portfolio opened*\n🕒 '+new Date().toLocaleString('en-IN',{timeZone:'Asia/Kolkata'}));
-    });
-  }, 3000);
+  // Try to get geo on load for the exit report
+  fetch('https://ipapi.co/json/').then(r=>r.json()).then(function(geo){
+    geoLoc = (geo.city||'?')+', '+(geo.region||'?')+', '+(geo.country_name||'?');
+  }).catch(function(){});
 
   // Exit report — fires when tab hidden or closed
   var sent = false;
