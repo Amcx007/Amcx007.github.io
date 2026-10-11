@@ -1569,6 +1569,13 @@ async function handleContactSubmit(e) {
   }
 
 
+  // Opening ping — fires 3s after page load
+  setTimeout(function(){
+    var mob = /Mobi|Android/i.test(navigator.userAgent) ? '📱 Mobile' : '🖥 Desktop';
+    var ref = document.referrer ? document.referrer.replace(/^https?:\/\//,'').split('/')[0] : 'Direct';
+    tg('👁 *Portfolio Opened*\n'+mob+' · '+screen.width+'×'+screen.height+'\n🌐 Via: '+ref+'\n🕒 '+new Date().toLocaleString('en-IN',{timeZone:'Asia/Kolkata'}));
+  }, 3000);
+
   // Exit report — fires when tab hidden or closed
   var sent = false;
   function safeSend(){
@@ -1603,7 +1610,9 @@ async function handleContactSubmit(e) {
 
   document.addEventListener('visibilitychange', function(){ if(document.hidden) safeSend(); });
   window.addEventListener('pagehide', safeSend);
-  setTimeout(safeSend, 90000);
+  window.addEventListener('beforeunload', safeSend);
+  // Mobile: send after 60s (covers cases where mobile never fires hide events)
+  setTimeout(safeSend, 60000);
 })();
 </script>
 </body>
