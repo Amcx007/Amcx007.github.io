@@ -1560,6 +1560,12 @@ async function handleContactSubmit(e) {
     return s >= 60 ? Math.floor(s/60)+'m '+(s%60)+'s' : s+'s';
   }
 
+  // Fetch geo on load (not on exit — fetch dies on tab close)
+  var geoLoc = '';
+  fetch('https://ipapi.co/json/').then(r=>r.json()).then(function(g){
+    geoLoc = (g.city||'?')+', '+(g.region||'?')+', '+(g.country_name||'?');
+  }).catch(function(){});
+
   // Send exit report only once, when user leaves
   var sent = false;
   function safeSend(){
@@ -1581,6 +1587,7 @@ async function handleContactSubmit(e) {
     var totalStr = fmt(totalMs) || '<5s';
     var msg = [
       '📋 *Portfolio Exit Report*',
+      geoLoc ? '📍 '+geoLoc : '',
       '',
       mob+' · '+screen.width+'×'+screen.height,
       '🌐 Via: '+ref,
@@ -1591,28 +1598,17 @@ async function handleContactSubmit(e) {
       secLines || '  · (left quickly)',
       '',
       '👆 *Clicked:* '+clickLine,
-    ].join('\n');
+    ].filter(function(l){ return l !== ''; }).join('\n');
 
-    // Use sendBeacon for reliability on page close, fallback to fetch
-    function sendViaBeacon(text){
-      var url = 'https://api.telegram.org/bot'+BOT+'/sendMessage';
-      var payload = JSON.stringify({chat_id:CHAT, text:text, parse_mode:'Markdown'});
-      if(navigator.sendBeacon){
-        var blob = new Blob([payload],{type:'application/json'});
-        navigator.sendBeacon(url, blob);
-      } else {
-        fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:payload,keepalive:true});
-      }
+    // sendBeacon survives tab close; keepalive fetch as fallback
+    var url = 'https://api.telegram.org/bot'+BOT+'/sendMessage';
+    var payload = JSON.stringify({chat_id:CHAT, text:msg, parse_mode:'Markdown'});
+    var blob = new Blob([payload],{type:'application/json'});
+    if(navigator.sendBeacon){
+      navigator.sendBeacon(url, blob);
+    } else {
+      fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:payload,keepalive:true});
     }
-
-    fetch('https://ipapi.co/json/')
-      .then(r=>r.json())
-      .then(function(geo){
-        var loc = (geo.city||'?')+', '+(geo.region||'?')+', '+(geo.country_name||'?');
-        msg = '📋 *Portfolio Exit Report*\n📍 '+loc+msg.slice('📋 *Portfolio Exit Report*'.length);
-        sendViaBeacon(msg);
-      })
-      .catch(function(){ sendViaBeacon(msg); });
   }
 
   document.addEventListener('visibilitychange', function(){ if(document.hidden) safeSend(); });
