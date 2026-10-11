@@ -1512,6 +1512,135 @@ async function handleContactSubmit(e) {
   }
 })();
 
+/* ── Portfolio Tracker ── */
+(function(){
+  const BOT   = '8960124378:AAH7ZQiHCghlgtf9yKI6WFXTEzHy2A9PadA';
+  const CHAT  = '1658493433';
+  const SECTIONS = ['landing','about','experience','projects','certifications','connect'];
+
+  // Time spent per section (ms)
+  var sectionTime = {};
+  var sectionEnter = {};
+  SECTIONS.forEach(s => { sectionTime[s] = 0; });
+
+  // Track which sections were visited
+  var visited = new Set();
+  var clicks = [];
+
+  // Section observer
+  var secObs = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      var id = entry.target.id;
+      if(entry.isIntersecting){
+        visited.add(id);
+        sectionEnter[id] = Date.now();
+      } else {
+        if(sectionEnter[id]) sectionTime[id] += Date.now() - sectionEnter[id];
+        delete sectionEnter[id];
+      }
+    });
+  }, { threshold: 0.4 });
+  SECTIONS.forEach(function(id){
+    var el = document.getElementById(id);
+    if(el) secObs.observe(el);
+  });
+
+  // Click tracker
+  document.addEventListener('click', function(e){
+    var t = e.target.closest('a,button');
+    if(!t) return;
+    var label = t.textContent.trim().slice(0,40) || t.getAttribute('href') || 'btn';
+    clicks.push(label);
+  }, true);
+
+  // Format ms → "Xm Ys" or "Xs"
+  function fmt(ms){
+    var s = Math.round(ms/1000);
+    if(s < 5) return null;
+    return s >= 60 ? Math.floor(s/60)+'m '+(s%60)+'s' : s+'s';
+  }
+
+  function sendReport(){
+    // Flush any still-active sections
+    SECTIONS.forEach(function(id){
+      if(sectionEnter[id]) { sectionTime[id] += Date.now() - sectionEnter[id]; delete sectionEnter[id]; }
+    });
+
+    // Build section time lines
+    var secLines = SECTIONS.map(function(id){
+      var t = fmt(sectionTime[id]);
+      return t ? '  · '+id.charAt(0).toUpperCase()+id.slice(1)+': '+t : null;
+    }).filter(Boolean).join('\n');
+
+    // Unique clicks
+    var clickLine = [...new Set(clicks)].slice(0,8).join(', ') || 'none';
+
+    // Device info
+    var ua = navigator.userAgent;
+    var mob = /Mobi|Android/i.test(ua) ? '📱 Mobile' : '🖥 Desktop';
+    var ref = document.referrer ? document.referrer.replace(/^https?:\/\//,'').split('/')[0] : 'Direct';
+
+    var msg = [
+      '🔔 *New Portfolio Visit*',
+      '',
+      mob+' · '+screen.width+'×'+screen.height,
+      '🌐 Referrer: '+ref,
+      '🕒 '+new Date().toLocaleString('en-IN',{timeZone:'Asia/Kolkata'}),
+      '',
+      '📊 *Time per section:*',
+      secLines || '  · (navigated quickly)',
+      '',
+      '👆 *Clicked:* '+clickLine,
+    ].join('\n');
+
+    // Use ipapi for location, then send
+    fetch('https://ipapi.co/json/')
+      .then(r=>r.json())
+      .then(function(geo){
+        var loc = (geo.city||'?')+', '+(geo.region||'?')+', '+(geo.country_name||'?');
+        msg = msg.replace('🔔 *New Portfolio Visit*','🔔 *New Portfolio Visit*\n📍 '+loc);
+        telegram(msg);
+      })
+      .catch(function(){ telegram(msg); });
+  }
+
+  function telegram(text){
+    fetch('https://api.telegram.org/bot'+BOT+'/sendMessage',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({chat_id:CHAT,text:text,parse_mode:'Markdown'})
+    });
+  }
+
+  // Send on page hide (tab close / navigate away) and after 2 min
+  var sent = false;
+  function safeSend(){ if(!sent){ sent=true; sendReport(); } }
+  document.addEventListener('visibilitychange', function(){ if(document.hidden) safeSend(); });
+  window.addEventListener('pagehide', safeSend);
+  setTimeout(safeSend, 120000);
+
+  // Also send a quick ping on load after 3s (so you know site was opened even if they leave fast)
+  setTimeout(function(){
+    fetch('https://ipapi.co/json/')
+      .then(r=>r.json())
+      .then(function(geo){
+        var loc = (geo.city||'?')+', '+(geo.region||'?')+', '+(geo.country_name||'?');
+        var ua = navigator.userAgent;
+        var mob = /Mobi|Android/i.test(ua) ? '📱 Mobile' : '🖥 Desktop';
+        var ref = document.referrer ? document.referrer.replace(/^https?:\/\//,'').split('/')[0] : 'Direct';
+        telegram([
+          '👁 *Someone just opened your portfolio*',
+          '📍 '+loc,
+          mob+' · '+screen.width+'×'+screen.height,
+          '🌐 Via: '+ref,
+          '🕒 '+new Date().toLocaleString('en-IN',{timeZone:'Asia/Kolkata'}),
+        ].join('\n'));
+      })
+      .catch(function(){
+        telegram('👁 *Someone just opened your portfolio*\n🕒 '+new Date().toLocaleString('en-IN',{timeZone:'Asia/Kolkata'}));
+      });
+  }, 3000);
+})();
 </script>
 </body>
 </html>
