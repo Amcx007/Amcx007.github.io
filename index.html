@@ -1560,8 +1560,6 @@ async function handleContactSubmit(e) {
     return s >= 60 ? Math.floor(s/60)+'m '+(s%60)+'s' : s+'s';
   }
 
-  var geoLoc = '';
-
   function tg(text){
     fetch('https://api.telegram.org/bot'+BOT+'/sendMessage',{
       method:'POST',
@@ -1570,10 +1568,6 @@ async function handleContactSubmit(e) {
     }).catch(function(){});
   }
 
-  // Try to get geo on load for the exit report
-  fetch('https://ipapi.co/json/').then(r=>r.json()).then(function(geo){
-    geoLoc = (geo.city||'?')+', '+(geo.region||'?')+', '+(geo.country_name||'?');
-  }).catch(function(){});
 
   // Exit report — fires when tab hidden or closed
   var sent = false;
@@ -1593,7 +1587,6 @@ async function handleContactSubmit(e) {
     var totalMs = Object.values(sectionTime).reduce(function(a,b){ return a+b; },0);
     var totalStr = fmt(totalMs) || '<5s';
     var lines = ['📋 *Exit Report*'];
-    if(geoLoc) lines.push('📍 '+geoLoc);
     lines.push(
       mob+' · '+screen.width+'×'+screen.height,
       '🌐 Via: '+ref,
