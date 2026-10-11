@@ -1617,6 +1617,13 @@ async function handleContactSubmit(e) {
   function safeSend(){ if(!sent){ sent=true; sendReport(); } }
   document.addEventListener('visibilitychange', function(){ if(document.hidden) safeSend(); });
   window.addEventListener('pagehide', safeSend);
+  window.addEventListener('beforeunload', safeSend);
+  window.addEventListener('unload', safeSend);
+  // Periodic send every 30s after 45s (catches long sessions)
+  setTimeout(function(){
+    setInterval(function(){ if(!sent) sendReport(); }, 30000);
+  }, 45000);
+  // Fallback: send after 2 minutes regardless
   setTimeout(safeSend, 120000);
 
   // Also send a quick ping on load after 3s (so you know site was opened even if they leave fast)
