@@ -1567,12 +1567,14 @@ async function handleContactSubmit(e) {
   }).catch(function(){});
 
   function tg(text){
+    // Use URLSearchParams — sends as application/x-www-form-urlencoded
+    // This is a "simple request" so no CORS preflight, and Telegram accepts it
+    var params = new URLSearchParams({chat_id:CHAT, text:text, parse_mode:'Markdown'});
     fetch('https://api.telegram.org/bot'+BOT+'/sendMessage',{
       method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({chat_id:CHAT,text:text,parse_mode:'Markdown'}),
+      body:params,
       keepalive:true
-    });
+    }).catch(function(){});
   }
 
   // Send exit report only once
