@@ -1560,18 +1560,26 @@ async function handleContactSubmit(e) {
     return s >= 60 ? Math.floor(s/60)+'m '+(s%60)+'s' : s+'s';
   }
 
-  // Fetch geo on load (not on exit — fetch dies on tab close)
+  // Fetch geo on load so it's ready at exit time
   var geoLoc = '';
   fetch('https://ipapi.co/json/').then(r=>r.json()).then(function(g){
     geoLoc = (g.city||'?')+', '+(g.region||'?')+', '+(g.country_name||'?');
   }).catch(function(){});
 
-  // Send exit report only once, when user leaves
+  function tg(text){
+    fetch('https://api.telegram.org/bot'+BOT+'/sendMessage',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({chat_id:CHAT,text:text,parse_mode:'Markdown'}),
+      keepalive:true
+    });
+  }
+
+  // Send exit report only once
   var sent = false;
   function safeSend(){
     if(sent) return;
     sent = true;
-    // Flush active sections
     SECTIONS.forEach(function(id){
       if(sectionEnter[id]){ sectionTime[id] += Date.now() - sectionEnter[id]; delete sectionEnter[id]; }
     });
@@ -1580,40 +1588,30 @@ async function handleContactSubmit(e) {
       return t ? '  · '+id.charAt(0).toUpperCase()+id.slice(1)+': '+t : null;
     }).filter(Boolean).join('\n');
     var clickLine = [...new Set(clicks)].slice(0,8).join(', ') || 'none';
-    var ua = navigator.userAgent;
-    var mob = /Mobi|Android/i.test(ua) ? '📱 Mobile' : '🖥 Desktop';
+    var mob = /Mobi|Android/i.test(navigator.userAgent) ? '📱 Mobile' : '🖥 Desktop';
     var ref = document.referrer ? document.referrer.replace(/^https?:\/\//,'').split('/')[0] : 'Direct';
-    var totalMs = Object.values(sectionTime).reduce(function(a,b){ return a+b; }, 0);
+    var totalMs = Object.values(sectionTime).reduce(function(a,b){ return a+b; },0);
     var totalStr = fmt(totalMs) || '<5s';
-    var msg = [
-      '📋 *Portfolio Exit Report*',
-      geoLoc ? '📍 '+geoLoc : '',
-      '',
+    var lines = ['📋 *Portfolio Exit Report*'];
+    if(geoLoc) lines.push('📍 '+geoLoc);
+    lines.push(
       mob+' · '+screen.width+'×'+screen.height,
       '🌐 Via: '+ref,
       '🕒 '+new Date().toLocaleString('en-IN',{timeZone:'Asia/Kolkata'}),
-      '⏱ Total time: '+totalStr,
+      '⏱ Total: '+totalStr,
       '',
-      '📊 *Time per section:*',
+      '📊 *Sections:*',
       secLines || '  · (left quickly)',
       '',
-      '👆 *Clicked:* '+clickLine,
-    ].filter(function(l){ return l !== ''; }).join('\n');
-
-    // sendBeacon survives tab close; keepalive fetch as fallback
-    var url = 'https://api.telegram.org/bot'+BOT+'/sendMessage';
-    var payload = JSON.stringify({chat_id:CHAT, text:msg, parse_mode:'Markdown'});
-    var blob = new Blob([payload],{type:'application/json'});
-    if(navigator.sendBeacon){
-      navigator.sendBeacon(url, blob);
-    } else {
-      fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:payload,keepalive:true});
-    }
+      '👆 *Clicked:* '+clickLine
+    );
+    tg(lines.join('\n'));
   }
 
+  // Fire on tab hide, page close, and after 90s as fallback
   document.addEventListener('visibilitychange', function(){ if(document.hidden) safeSend(); });
   window.addEventListener('pagehide', safeSend);
-  window.addEventListener('beforeunload', safeSend);
+  setTimeout(safeSend, 90000);
 })();
 </script>
 </body>
