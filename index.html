@@ -192,14 +192,16 @@
   .proj-carousel-track.animating{transition:transform 0.65s cubic-bezier(0.16,1,0.3,1)}
   .proj-card-slot{flex:0 0 min(680px,82vw);margin:0 1.5rem}
 
-  /* Progress bar nav */
-  .proj-carousel-nav{position:absolute;bottom:2.8rem;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:0.8rem;z-index:30}
-  .proj-nav-tab{display:flex;flex-direction:column;align-items:flex-start;gap:0.4rem;cursor:pointer;opacity:0.35;transition:opacity 0.3s;min-width:80px}
-  .proj-nav-tab.active{opacity:1}
-  .proj-nav-label{font-family:'Space Mono',monospace;font-size:0.38rem;letter-spacing:0.18em;text-transform:uppercase;color:#fff}
-  .proj-nav-bar{width:100%;height:2px;background:rgba(255,255,255,0.15);border-radius:2px;overflow:hidden}
-  .proj-nav-fill{height:100%;width:0%;background:#fff;border-radius:2px;transition:width 0.65s cubic-bezier(0.16,1,0.3,1)}
-  .proj-nav-tab.active .proj-nav-fill{width:100%}
+  /* ── Numbered nav ── */
+  .proj-carousel-nav{position:absolute;bottom:2.8rem;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:0;z-index:30}
+  .proj-nav-tab{display:flex;align-items:center;gap:0;cursor:pointer;position:relative}
+  .proj-nav-num{font-family:'Space Mono',monospace;font-size:0.52rem;letter-spacing:0.1em;color:rgba(255,255,255,0.2);transition:color 0.35s;padding:0 0.6rem;position:relative}
+  .proj-nav-tab.active .proj-nav-num{color:#fff}
+  .proj-nav-tab:hover:not(.active) .proj-nav-num{color:rgba(255,255,255,0.5)}
+  .proj-nav-line{width:28px;height:1px;background:rgba(255,255,255,0.12);position:relative;overflow:hidden}
+  .proj-nav-fill{position:absolute;inset:0;background:#fff;transform:scaleX(0);transform-origin:left;transition:transform 0.65s cubic-bezier(0.16,1,0.3,1)}
+  .proj-nav-tab.active .proj-nav-fill{transform:scaleX(1)}
+  .proj-nav-label{display:none}
   .proj-nav-sep{display:none}
 
   /* Swipe hint */
@@ -361,10 +363,35 @@
   .conn-field input:focus{border-color:rgba(255,255,255,0.25);background:rgba(255,255,255,0.09)}
   .conn-field input::placeholder{color:rgba(255,255,255,0.2)}
   .conn-fields-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
-  .conn-submit{display:inline-flex;align-items:center;justify-content:space-between;gap:1rem;padding:1rem 1.4rem;background:#fff;border:none;border-radius:10px;color:#0d0d0d;font-family:'Space Mono',monospace;font-size:0.46rem;letter-spacing:0.2em;text-transform:uppercase;cursor:pointer;transition:background 0.2s,transform 0.2s;margin-top:0.4rem;width:100%}
-  .conn-submit:hover{background:#e8e8e8;transform:translateY(-2px)}
-  .conn-submit svg{width:14px;height:14px;stroke:#0d0d0d;fill:none;stroke-width:2;transition:transform 0.25s;flex-shrink:0}
-  .conn-submit:hover svg{transform:translateX(5px)}
+  .conn-submit-wrap{display:flex;justify-content:center;align-items:center;margin-top:0.4rem;width:100%}
+  .conn-submit{display:inline-flex;align-items:center;justify-content:space-between;gap:1rem;padding:1rem 1.4rem;background:#fff;border:none;border-radius:10px;color:#0d0d0d;font-family:'Space Mono',monospace;font-size:0.46rem;letter-spacing:0.2em;text-transform:uppercase;cursor:pointer;width:100%;overflow:hidden;position:relative;
+    transition:width 0.5s cubic-bezier(0.4,0,0.2,1),border-radius 0.5s cubic-bezier(0.4,0,0.2,1),background 0.35s,padding 0.5s cubic-bezier(0.4,0,0.2,1),transform 0.2s,height 0.5s cubic-bezier(0.4,0,0.2,1)}
+  .conn-submit:hover:not(:disabled){background:#e8e8e8;transform:translateY(-2px)}
+  .conn-submit:disabled{cursor:not-allowed}
+  .conn-submit .btn-arrow{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;transition:transform 0.25s,opacity 0.2s;flex-shrink:0}
+  .conn-submit:hover:not(:disabled) .btn-arrow{transform:translateX(5px)}
+  .conn-submit .btn-label{transition:opacity 0.15s;white-space:nowrap;overflow:hidden}
+  /* pill → circle morph */
+  .conn-submit.sending,.conn-submit.success,.conn-submit.error{width:52px;height:52px;padding:0 !important;border-radius:50% !important;justify-content:center !important;gap:0 !important}
+  .conn-submit.sending{background:#111}
+  .conn-submit.success{background:#fff}
+  .conn-submit.error{background:#200}
+  .conn-submit.sending .btn-label,.conn-submit.success .btn-label,.conn-submit.error .btn-label{max-width:0;opacity:0;margin:0;padding:0}
+  .conn-submit.sending .btn-arrow,.conn-submit.success .btn-arrow,.conn-submit.error .btn-arrow{display:none}
+  /* spinner */
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .btn-spinner{display:none;width:20px;height:20px;border:2px solid rgba(255,255,255,0.15);border-top-color:#fff;border-radius:50%;animation:spin 0.75s linear infinite}
+  .conn-submit.sending .btn-spinner{display:block}
+  /* checkmark */
+  @keyframes checkDraw{from{stroke-dashoffset:36}to{stroke-dashoffset:0}}
+  @keyframes checkPop{0%{transform:scale(0.4)}65%{transform:scale(1.15)}100%{transform:scale(1)}}
+  .btn-check{display:none;width:22px;height:22px;stroke:#111;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:36;stroke-dashoffset:36}
+  .conn-submit.success .btn-check{display:block;animation:checkDraw 0.38s cubic-bezier(0.4,0,0.2,1) forwards 0.08s,checkPop 0.42s cubic-bezier(0.34,1.56,0.64,1) forwards 0.05s}
+  /* error X */
+  @keyframes xDraw{from{stroke-dashoffset:24}to{stroke-dashoffset:0}}
+  .btn-x{display:none;width:18px;height:18px;stroke:#ff5555;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-dasharray:24;stroke-dashoffset:24}
+  .conn-submit.error .btn-x{display:block;animation:xDraw 0.28s ease forwards 0.1s}
+  @keyframes btnPulse{0%,100%{box-shadow:0 0 0 0 rgba(255,255,255,0.3)}50%{box-shadow:0 0 0 8px rgba(255,255,255,0)}}
   @media(max-width:900px){#certifications{grid-template-columns:1fr;height:auto;padding:3rem 2rem}.cert-right{height:300px;position:relative}}
   @media(max-width:900px) and (min-width:769px){
     .proj-card-inner{padding:1.8rem 2rem 1.8rem !important}
@@ -456,9 +483,8 @@
     #projects{height:auto !important;overflow:visible !important}
     .proj-pin-scene{position:static !important;height:auto !important;overflow:visible !important;padding:2.5rem 0 3rem}
     .proj-top-sticky{position:static !important;padding:0 1.4rem 2rem !important}
-    .proj-cards-outer{position:static !important;display:flex !important;flex-direction:row !important;gap:0 !important;padding:0 !important;overflow-x:auto !important;overflow-y:visible !important;scroll-snap-type:x mandatory !important;-webkit-overflow-scrolling:touch !important;scrollbar-width:none !important;cursor:default !important}
-    .proj-cards-outer::-webkit-scrollbar{display:none !important}
-    .proj-card-slot{flex:0 0 88vw !important;margin:0 !important;padding:0 1rem !important;scroll-snap-align:center !important;box-sizing:border-box !important}
+    .proj-cards-outer{position:static !important;display:flex !important;flex-direction:row !important;gap:0 !important;padding:0 !important;overflow:hidden !important;cursor:default !important}
+    .proj-card-slot{flex:0 0 88vw !important;margin:0 !important;padding:0 1rem !important;box-sizing:border-box !important}
     .proj-carousel-nav{bottom:1.5rem !important}
     .proj-card-s{border-radius:14px !important;box-shadow:0 10px 40px rgba(0,0,0,0.2) !important}
     .proj-card-inner{padding:1.4rem 1.2rem 1.6rem !important}
@@ -470,7 +496,6 @@
     .ptag{font-size:0.48rem !important;padding:0.28rem 0.7rem !important}
     .proj-github-btn{font-size:0.48rem !important;padding:0.5rem 1rem !important;margin-top:1rem !important}
     .proj-swipe-hint{display:none !important}
-    .proj-mobile-swipe-hint{display:flex !important}
     .proj-carousel-nav{display:none !important}
 
     /* ── CERTIFICATIONS ── */
@@ -589,7 +614,7 @@
     <!-- LEFT: editorial black canvas -->
     <div class="about-left-col">
       <div>
-        <p class="about-num">(01) <span style="color:rgba(0,0,0,0.28);letter-spacing:0.1em">// about me</span></p>
+        <p class="about-num">(01) <span style="color:rgba(0,0,0,0.28);letter-spacing:0.1em">— about me</span></p>
         <h2 class="about-big">ABOUT<br>ME</h2>
       </div>
       <div class="about-mid">
@@ -641,7 +666,7 @@
     <div class="exp-line-v"></div>
     <div class="exp-line-h"></div>
     <div>
-      <p class="exp-left-num">(02) <span style="color:rgba(255,255,255,0.25);letter-spacing:0.1em">// experience &amp; education</span></p>
+      <p class="exp-left-num">(02) <span style="color:rgba(255,255,255,0.25);letter-spacing:0.1em">— experience &amp; education</span></p>
       <h2 class="exp-left-big">EXP<span style="color:rgba(255,255,255,0.18);font-size:clamp(1.6rem,3.2vw,2.8rem)">ERIENCE</span><br><span style="color:rgba(255,255,255,0.18)">&amp;</span> EDU<span style="color:rgba(255,255,255,0.18);font-size:clamp(1.6rem,3.2vw,2.8rem)">CATION</span></h2>
     </div>
     <p class="exp-left-sub">Internship experience<br>&amp; academic foundation<br>in cybersecurity.</p>
@@ -703,7 +728,7 @@
 
     <!-- Floating header -->
     <div class="proj-top-sticky">
-      <p class="proj-num">(03) <span style="color:rgba(255,255,255,0.22);letter-spacing:0.1em">// projects</span></p>
+      <p class="proj-num">(03) <span style="color:rgba(255,255,255,0.22);letter-spacing:0.1em">— projects</span></p>
       <h2 class="proj-heading">Selected Works</h2>
       <p class="proj-sub">Personal &amp; academic projects in cybersecurity.</p>
     </div>
@@ -748,12 +773,6 @@
 
       </div>
 
-      <!-- Swipe hint -->
-      <div class="proj-mobile-swipe-hint" style="display:none;justify-content:center;align-items:center;gap:0.5rem;padding:1rem 0 0.5rem;font-family:'Space Mono',monospace;font-size:0.55rem;letter-spacing:0.15em;color:rgba(255,255,255,0.4);text-transform:uppercase">
-        <svg width="18" height="10" viewBox="0 0 18 10" fill="none"><path d="M2 5h14M10 1.5l5 3.5-5 3.5" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        swipe to explore
-        <svg width="18" height="10" viewBox="0 0 18 10" fill="none" style="transform:scaleX(-1)"><path d="M2 5h14M10 1.5l5 3.5-5 3.5" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </div>
       <div class="proj-swipe-hint">
         <svg width="16" height="8" viewBox="0 0 16 8" fill="none"><path d="M1 4h14M10 1l4 3-4 3" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
         drag to explore
@@ -775,7 +794,7 @@
 
   <!-- Header on left, logos on right -->
   <div class="cert-header">
-    <p class="cert-num">(04) <span style="color:rgba(255,255,255,0.25);letter-spacing:0.1em">// certifications</span></p>
+    <p class="cert-num">(04) <span style="color:rgba(255,255,255,0.25);letter-spacing:0.1em">— certifications</span></p>
     <h2 class="cert-heading">CREDENTIALS</h2>
     <p class="cert-sub">Earned &amp; in progress.</p>
     <div class="cert-row earned">
@@ -856,7 +875,7 @@
 
   <!-- LEFT — heading + social links -->
   <div class="conn-left">
-    <p class="conn-num">(05) <span style="color:rgba(0,0,0,0.25);letter-spacing:0.1em">// connect</span></p>
+    <p class="conn-num">(05) <span style="color:rgba(0,0,0,0.25);letter-spacing:0.1em">— connect</span></p>
     <h2 class="conn-heading">Let's<br>Connect.</h2>
     <p class="conn-sub">Open to opportunities &amp; collaborations.</p>
     <div class="conn-links">
@@ -911,7 +930,7 @@
         <input type="hidden" name="subject" value="New message from portfolio"/>
         <input type="hidden" name="from_name" value="Portfolio Contact Form"/>
         <input type="checkbox" name="botcheck" style="display:none"/>
-        <p class="conn-form-title"><em>// Get in touch</em>Drop me a message.</p>
+        <p class="conn-form-title"><em>— Get in touch</em>Drop me a message.</p>
 
         <div class="conn-fields-row">
           <div class="conn-field">
@@ -934,10 +953,15 @@
           <input id="cf-msg" name="message" type="text" placeholder="What's on your mind?" autocomplete="off" required/>
         </div>
 
-        <button class="conn-submit" type="button" id="submitBtn" onclick="handleContactSubmit(event)">
-          Send Message
-          <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg>
-        </button>
+        <div class="conn-submit-wrap">
+          <button class="conn-submit" type="button" id="submitBtn" onclick="handleContactSubmit(event)">
+            <span class="btn-label">Send Message</span>
+            <svg class="btn-arrow" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg>
+            <span class="btn-spinner"></span>
+            <svg class="btn-check" viewBox="0 0 24 24"><polyline points="4 12 9 17 20 7"/></svg>
+            <svg class="btn-x" viewBox="0 0 24 24"><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></svg>
+          </button>
+        </div>
         <p id="formResult" style="display:none;font-family:'Space Mono',monospace;font-size:0.46rem;letter-spacing:0.12em;margin-top:0.5rem;text-align:center"></p>
       </form>
     </div>
@@ -1141,53 +1165,104 @@ const overlay    = document.getElementById('projOverlay');
   var dotsEl = document.getElementById('projDots');
   if (!track || !dotsEl) return;
 
-  var slots = Array.from(track.querySelectorAll('.proj-card-slot'));
-  var N = slots.length;
+  var origSlots = Array.from(track.querySelectorAll('.proj-card-slot'));
+  var N = origSlots.length;
+  if (N === 0) return;
+
+  function isMobile() { return window.innerWidth <= 768; }
+
+  // ── Mobile: inject clones for infinite loop ──
+  var clonesInjected = false;
+  function injectClones() {
+    if (clonesInjected) return;
+    clonesInjected = true;
+    origSlots.forEach(function(s){ track.appendChild(s.cloneNode(true)); });
+    origSlots.forEach(function(s){ track.insertBefore(s.cloneNode(true), track.firstChild); });
+  }
+  function removeClones() {
+    if (!clonesInjected) return;
+    clonesInjected = false;
+    Array.from(track.querySelectorAll('.proj-card-slot')).forEach(function(s, i){
+      if (i < N || i >= N * 2) s.parentNode.removeChild(s);
+    });
+  }
+
+  function slots() { return Array.from(track.querySelectorAll('.proj-card-slot')); }
+
+  // current index: on desktop 0-based into origSlots; on mobile N-based (N = first real card)
   var current = 0;
 
-  // Project names for progress bars
-  var names = slots.map(function(s) {
+  // Project names for progress bar tabs
+  var names = origSlots.map(function(s){
     var t = s.querySelector('.proj-slide-title');
-    return t ? t.textContent.trim() : (s + 1);
+    return t ? t.textContent.trim() : '';
   });
-
   var tabs = [];
-  names.forEach(function(name, i) {
+  names.forEach(function(name, i){
     var tab = document.createElement('div');
     tab.className = 'proj-nav-tab' + (i === 0 ? ' active' : '');
-    tab.innerHTML = '<span class="proj-nav-label">' + name + '</span><div class="proj-nav-bar"><div class="proj-nav-fill"></div></div>';
-    tab.addEventListener('click', function() { go(i); });
+    var num = (i + 1 < 10 ? '0' : '') + (i + 1);
+    tab.innerHTML = '<span class="proj-nav-num">' + num + '</span>' + (i < names.length - 1 ? '<div class="proj-nav-line"><div class="proj-nav-fill"></div></div>' : '');
+    tab.addEventListener('click', function(){
+      go(isMobile() ? i + N : i);
+    });
     dotsEl.appendChild(tab);
     tabs.push(tab);
   });
 
+  function updateTabs(realIndex) {
+    tabs.forEach(function(t, i){ t.classList.toggle('active', i === realIndex); });
+  }
+
   function getOffset(index) {
-    var cardW = slots[0].offsetWidth + 48;
-    var containerW = track.parentElement.offsetWidth;
-    return (containerW / 2) - (cardW / 2) - index * cardW;
+    var all = slots();
+    var slot = all[index];
+    if (!slot) return 0;
+    var cardW = slot.offsetWidth;
+    var gap = isMobile() ? 0 : 48;
+    var containerW = outer.offsetWidth;
+    var x = 0;
+    for (var i = 0; i < index; i++) x += all[i].offsetWidth + gap;
+    return (containerW / 2) - (cardW / 2) - x;
   }
 
   function go(index, instant) {
-    current = Math.max(0, Math.min(N - 1, index));
+    current = index;
     track.classList.toggle('animating', !instant);
     track.style.transform = 'translateX(' + getOffset(current) + 'px)';
-    tabs.forEach(function(t, i){ t.classList.toggle('active', i === current); });
+    var realIndex = isMobile() ? ((current - N) % N + N) % N : Math.max(0, Math.min(N-1, current));
+    updateTabs(realIndex);
+
+    // Mobile only: silently snap back from clone territory after animation
+    if (isMobile() && !instant) {
+      setTimeout(function(){
+        if (current < N) {
+          current += N;
+          track.classList.remove('animating');
+          track.style.transform = 'translateX(' + getOffset(current) + 'px)';
+        } else if (current >= N * 2) {
+          current -= N;
+          track.classList.remove('animating');
+          track.style.transform = 'translateX(' + getOffset(current) + 'px)';
+        }
+      }, 660);
+    }
   }
 
-  // Mouse drag
-  var dragStart = null, dragOffset = 0, baseOffset = 0;
-  outer.addEventListener('mousedown', function(e) {
+  // ── Mouse drag (desktop only) ──
+  var dragStart = null, baseOffset = 0;
+  outer.addEventListener('mousedown', function(e){
+    if (isMobile()) return;
     dragStart = e.clientX;
     baseOffset = getOffset(current);
     track.classList.remove('animating');
     outer.classList.add('dragging');
   });
-  window.addEventListener('mousemove', function(e) {
+  window.addEventListener('mousemove', function(e){
     if (dragStart === null) return;
-    dragOffset = e.clientX - dragStart;
-    track.style.transform = 'translateX(' + (baseOffset + dragOffset) + 'px)';
+    track.style.transform = 'translateX(' + (baseOffset + e.clientX - dragStart) + 'px)';
   });
-  window.addEventListener('mouseup', function(e) {
+  window.addEventListener('mouseup', function(e){
     if (dragStart === null) return;
     var dx = e.clientX - dragStart;
     dragStart = null;
@@ -1196,27 +1271,48 @@ const overlay    = document.getElementById('projOverlay');
     else go(current);
   });
 
-  // Touch swipe
+  // ── Touch swipe (mobile — infinite) ──
   var tx = 0;
-  track.addEventListener('touchstart', function(e){ tx = e.touches[0].clientX; track.classList.remove('animating'); }, { passive: true });
+  track.addEventListener('touchstart', function(e){
+    tx = e.touches[0].clientX;
+    baseOffset = getOffset(current);
+    track.classList.remove('animating');
+  }, { passive: true });
   track.addEventListener('touchmove', function(e){
     var dx = e.touches[0].clientX - tx;
-    track.style.transform = 'translateX(' + (getOffset(current) + dx) + 'px)';
+    track.style.transform = 'translateX(' + (baseOffset + dx) + 'px)';
   }, { passive: true });
   track.addEventListener('touchend', function(e){
     var dx = e.changedTouches[0].clientX - tx;
-    if (Math.abs(dx) > 60) go(current + (dx < 0 ? 1 : -1));
+    if (Math.abs(dx) > 50) go(current + (dx < 0 ? 1 : -1));
     else go(current);
   }, { passive: true });
 
-  // Keyboard
-  document.addEventListener('keydown', function(e) {
+  // ── Keyboard ──
+  document.addEventListener('keydown', function(e){
     if (e.key === 'ArrowLeft')  go(current - 1);
     if (e.key === 'ArrowRight') go(current + 1);
   });
 
-  go(0, true);
-  window.addEventListener('resize', function(){ go(current, true); });
+  // ── Init & resize ──
+  function init(instant) {
+    if (isMobile()) {
+      injectClones();
+      current = N; // first real card
+    } else {
+      removeClones();
+      current = Math.max(0, Math.min(N - 1, current < N ? current : current - N));
+    }
+    go(current, instant !== false);
+  }
+
+  init(true);
+  var lastMobile = isMobile();
+  window.addEventListener('resize', function(){
+    var nowMobile = isMobile();
+    if (nowMobile !== lastMobile) { lastMobile = nowMobile; init(true); }
+    else go(current, true);
+  });
 })();
 
 // ── Cert rows slide in ──
@@ -1337,34 +1433,38 @@ premiumEls.forEach(el => premObs.observe(el));
 })();
 
 /* ── Web3Forms contact form ── */
+function resetBtn(btn) {
+  btn.disabled = false;
+  btn.className = 'conn-submit';
+}
 async function handleContactSubmit(e) {
   const form = document.getElementById('contactForm');
-  const btn = document.getElementById('submitBtn');
+  const btn  = document.getElementById('submitBtn');
   const result = document.getElementById('formResult');
-  if(!form.checkValidity()){ form.reportValidity(); return; }
+  if (!form.checkValidity()) { form.reportValidity(); return; }
+
   btn.disabled = true;
-  btn.textContent = 'Sending…';
+  btn.className = 'conn-submit sending';
   result.style.display = 'none';
+
   const data = new FormData(form);
   try {
-    const res = await fetch('https://api.web3forms.com/submit', { method:'POST', body:data });
+    const res  = await fetch('https://api.web3forms.com/submit', { method:'POST', body:data });
     const json = await res.json();
-    result.style.display = 'block';
-    if(json.success){
-      result.style.color = 'rgba(255,255,255,0.8)';
-      result.textContent = '✓ Message sent! I\'ll get back to you soon.';
+    if (json.success) {
+      btn.className = 'conn-submit success';
       form.reset();
+      setTimeout(() => resetBtn(btn), 3200);
     } else {
-      result.style.color = 'rgba(255,100,100,0.9)';
-      result.textContent = '✗ Something went wrong. Please try again.';
+      btn.className = 'conn-submit error';
+      btn.disabled = false;
+      setTimeout(() => resetBtn(btn), 3200);
     }
-  } catch(err){
-    result.style.display = 'block';
-    result.style.color = 'rgba(255,100,100,0.9)';
-    result.textContent = '✗ Network error. Please try again.';
+  } catch(err) {
+    btn.className = 'conn-submit error';
+    btn.disabled = false;
+    setTimeout(() => resetBtn(btn), 3200);
   }
-  btn.disabled = false;
-  btn.textContent = 'Send Message';
 }
 
 (function(){
