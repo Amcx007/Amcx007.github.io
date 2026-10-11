@@ -1514,9 +1514,9 @@ async function handleContactSubmit(e) {
 
 /* ── Portfolio Tracker ── */
 (function(){
-  const BOT   = '8960124378:AAH7ZQiHCghlgtf9yKI6WFXTEzHy2A9PadA';
-  const CHAT  = '1658493433';
-  const SECTIONS = ['landing','about','experience','projects','certifications','connect'];
+  var BOT  = '8960124378:AAH7ZQiHCghlgtf9yKI6WFXTEzHy2A9PadA';
+  var CHAT = '1658493433';
+  var SECTIONS = ['landing','about','experience','projects','certifications','connect'];
 
   // Time spent per section (ms)
   var sectionTime = {};
@@ -1560,24 +1560,29 @@ async function handleContactSubmit(e) {
     return s >= 60 ? Math.floor(s/60)+'m '+(s%60)+'s' : s+'s';
   }
 
-  // Fetch geo on load so it's ready at exit time
   var geoLoc = '';
-  fetch('https://ipapi.co/json/').then(r=>r.json()).then(function(g){
-    geoLoc = (g.city||'?')+', '+(g.region||'?')+', '+(g.country_name||'?');
-  }).catch(function(){});
 
   function tg(text){
-    // Use URLSearchParams — sends as application/x-www-form-urlencoded
-    // This is a "simple request" so no CORS preflight, and Telegram accepts it
-    var params = new URLSearchParams({chat_id:CHAT, text:text, parse_mode:'Markdown'});
     fetch('https://api.telegram.org/bot'+BOT+'/sendMessage',{
       method:'POST',
-      body:params,
-      keepalive:true
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({chat_id:CHAT,text:text,parse_mode:'Markdown'})
     }).catch(function(){});
   }
 
-  // Send exit report only once
+  // Opening ping after 3s (same as before — confirmed working)
+  setTimeout(function(){
+    fetch('https://ipapi.co/json/').then(r=>r.json()).then(function(geo){
+      geoLoc = (geo.city||'?')+', '+(geo.region||'?')+', '+(geo.country_name||'?');
+      var mob = /Mobi|Android/i.test(navigator.userAgent)?'📱 Mobile':'🖥 Desktop';
+      var ref = document.referrer?document.referrer.replace(/^https?:\/\//,'').split('/')[0]:'Direct';
+      tg('👁 *Portfolio opened*\n📍 '+geoLoc+'\n'+mob+' · '+screen.width+'×'+screen.height+'\n🌐 Via: '+ref+'\n🕒 '+new Date().toLocaleString('en-IN',{timeZone:'Asia/Kolkata'}));
+    }).catch(function(){
+      tg('👁 *Portfolio opened*\n🕒 '+new Date().toLocaleString('en-IN',{timeZone:'Asia/Kolkata'}));
+    });
+  }, 3000);
+
+  // Exit report — fires when tab hidden or closed
   var sent = false;
   function safeSend(){
     if(sent) return;
@@ -1594,7 +1599,7 @@ async function handleContactSubmit(e) {
     var ref = document.referrer ? document.referrer.replace(/^https?:\/\//,'').split('/')[0] : 'Direct';
     var totalMs = Object.values(sectionTime).reduce(function(a,b){ return a+b; },0);
     var totalStr = fmt(totalMs) || '<5s';
-    var lines = ['📋 *Portfolio Exit Report*'];
+    var lines = ['📋 *Exit Report*'];
     if(geoLoc) lines.push('📍 '+geoLoc);
     lines.push(
       mob+' · '+screen.width+'×'+screen.height,
@@ -1610,7 +1615,6 @@ async function handleContactSubmit(e) {
     tg(lines.join('\n'));
   }
 
-  // Fire on tab hide, page close, and after 90s as fallback
   document.addEventListener('visibilitychange', function(){ if(document.hidden) safeSend(); });
   window.addEventListener('pagehide', safeSend);
   setTimeout(safeSend, 90000);
