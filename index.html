@@ -1573,7 +1573,13 @@ async function handleContactSubmit(e) {
   setTimeout(function(){
     var mob = /Mobi|Android/i.test(navigator.userAgent) ? '📱 Mobile' : '🖥 Desktop';
     var ref = document.referrer ? document.referrer.replace(/^https?:\/\//,'').split('/')[0] : 'Direct';
-    tg('👁 *Portfolio Opened*\n'+mob+' · '+screen.width+'×'+screen.height+'\n🌐 Via: '+ref+'\n🕒 '+new Date().toLocaleString('en-IN',{timeZone:'Asia/Kolkata'}));
+    var msg = '👁 *Portfolio Opened*\n'+mob+' · '+screen.width+'×'+screen.height+'\n🌐 Via: '+ref+'\n🕒 '+new Date().toLocaleString('en-IN',{timeZone:'Asia/Kolkata'});
+    fetch('https://api.telegram.org/bot'+BOT+'/sendMessage',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({chat_id:CHAT,text:msg,parse_mode:'Markdown'}),
+      keepalive:true
+    }).catch(function(){});
   }, 3000);
 
   // Exit report — fires when tab hidden or closed
