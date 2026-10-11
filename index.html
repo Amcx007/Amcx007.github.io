@@ -1560,93 +1560,64 @@ async function handleContactSubmit(e) {
     return s >= 60 ? Math.floor(s/60)+'m '+(s%60)+'s' : s+'s';
   }
 
-  function sendReport(){
-    // Flush any still-active sections
+  // Send exit report only once, when user leaves
+  var sent = false;
+  function safeSend(){
+    if(sent) return;
+    sent = true;
+    // Flush active sections
     SECTIONS.forEach(function(id){
-      if(sectionEnter[id]) { sectionTime[id] += Date.now() - sectionEnter[id]; delete sectionEnter[id]; }
+      if(sectionEnter[id]){ sectionTime[id] += Date.now() - sectionEnter[id]; delete sectionEnter[id]; }
     });
-
-    // Build section time lines
     var secLines = SECTIONS.map(function(id){
       var t = fmt(sectionTime[id]);
       return t ? '  · '+id.charAt(0).toUpperCase()+id.slice(1)+': '+t : null;
     }).filter(Boolean).join('\n');
-
-    // Unique clicks
     var clickLine = [...new Set(clicks)].slice(0,8).join(', ') || 'none';
-
-    // Device info
     var ua = navigator.userAgent;
     var mob = /Mobi|Android/i.test(ua) ? '📱 Mobile' : '🖥 Desktop';
     var ref = document.referrer ? document.referrer.replace(/^https?:\/\//,'').split('/')[0] : 'Direct';
-
+    var totalMs = Object.values(sectionTime).reduce(function(a,b){ return a+b; }, 0);
+    var totalStr = fmt(totalMs) || '<5s';
     var msg = [
-      '🔔 *New Portfolio Visit*',
+      '📋 *Portfolio Exit Report*',
       '',
       mob+' · '+screen.width+'×'+screen.height,
-      '🌐 Referrer: '+ref,
+      '🌐 Via: '+ref,
       '🕒 '+new Date().toLocaleString('en-IN',{timeZone:'Asia/Kolkata'}),
+      '⏱ Total time: '+totalStr,
       '',
       '📊 *Time per section:*',
-      secLines || '  · (navigated quickly)',
+      secLines || '  · (left quickly)',
       '',
       '👆 *Clicked:* '+clickLine,
     ].join('\n');
 
-    // Use ipapi for location, then send
+    // Use sendBeacon for reliability on page close, fallback to fetch
+    function sendViaBeacon(text){
+      var url = 'https://api.telegram.org/bot'+BOT+'/sendMessage';
+      var payload = JSON.stringify({chat_id:CHAT, text:text, parse_mode:'Markdown'});
+      if(navigator.sendBeacon){
+        var blob = new Blob([payload],{type:'application/json'});
+        navigator.sendBeacon(url, blob);
+      } else {
+        fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:payload,keepalive:true});
+      }
+    }
+
     fetch('https://ipapi.co/json/')
       .then(r=>r.json())
       .then(function(geo){
         var loc = (geo.city||'?')+', '+(geo.region||'?')+', '+(geo.country_name||'?');
-        msg = msg.replace('🔔 *New Portfolio Visit*','🔔 *New Portfolio Visit*\n📍 '+loc);
-        telegram(msg);
+        msg = '📋 *Portfolio Exit Report*\n📍 '+loc+msg.slice('📋 *Portfolio Exit Report*'.length);
+        sendViaBeacon(msg);
       })
-      .catch(function(){ telegram(msg); });
+      .catch(function(){ sendViaBeacon(msg); });
   }
 
-  function telegram(text){
-    fetch('https://api.telegram.org/bot'+BOT+'/sendMessage',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({chat_id:CHAT,text:text,parse_mode:'Markdown'})
-    });
-  }
-
-  // Send on page hide (tab close / navigate away) and after 2 min
-  var sent = false;
-  function safeSend(){ if(!sent){ sent=true; sendReport(); } }
   document.addEventListener('visibilitychange', function(){ if(document.hidden) safeSend(); });
   window.addEventListener('pagehide', safeSend);
   window.addEventListener('beforeunload', safeSend);
-  window.addEventListener('unload', safeSend);
-  // Periodic send every 30s after 45s (catches long sessions)
-  setTimeout(function(){
-    setInterval(function(){ if(!sent) sendReport(); }, 30000);
-  }, 45000);
-  // Fallback: send after 2 minutes regardless
-  setTimeout(safeSend, 120000);
-
-  // Also send a quick ping on load after 3s (so you know site was opened even if they leave fast)
-  setTimeout(function(){
-    fetch('https://ipapi.co/json/')
-      .then(r=>r.json())
-      .then(function(geo){
-        var loc = (geo.city||'?')+', '+(geo.region||'?')+', '+(geo.country_name||'?');
-        var ua = navigator.userAgent;
-        var mob = /Mobi|Android/i.test(ua) ? '📱 Mobile' : '🖥 Desktop';
-        var ref = document.referrer ? document.referrer.replace(/^https?:\/\//,'').split('/')[0] : 'Direct';
-        telegram([
-          '👁 *Someone just opened your portfolio*',
-          '📍 '+loc,
-          mob+' · '+screen.width+'×'+screen.height,
-          '🌐 Via: '+ref,
-          '🕒 '+new Date().toLocaleString('en-IN',{timeZone:'Asia/Kolkata'}),
-        ].join('\n'));
-      })
-      .catch(function(){
-        telegram('👁 *Someone just opened your portfolio*\n🕒 '+new Date().toLocaleString('en-IN',{timeZone:'Asia/Kolkata'}));
-      });
-  }, 3000);
 })();
 </script>
 </body>
