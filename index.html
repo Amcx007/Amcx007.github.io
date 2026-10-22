@@ -82,7 +82,7 @@
   .about-tag:hover{color:#000}
   .about-tag:hover .about-tag-arrow{transform:translate(2px,-2px);color:#000}
   /* ── EXPERIENCE & EDUCATION ── */
-  #experience{background:#000;height:100vh;scroll-snap-align:start;scroll-snap-stop:always;overflow:hidden;position:relative;display:grid;grid-template-columns:42% 58%}
+  #experience{background:#000;height:100vh;scroll-snap-align:start;scroll-snap-stop:always;overflow:hidden;position:relative;display:grid;grid-template-columns:38% 62%}
   /* Left panel — big heading */
   .exp-left{display:flex;flex-direction:column;justify-content:space-between;padding:2.6rem 3rem 3.5rem 5rem;border-right:1px solid rgba(255,255,255,0.07);position:relative}
   .exp-left-num{font-family:'Space Mono',monospace;font-size:0.52rem;letter-spacing:0.28em;color:rgba(255,255,255,0.22);text-transform:uppercase;margin-bottom:0.5rem}
@@ -92,7 +92,7 @@
   .exp-line-v{position:absolute;top:0;left:3.2rem;width:1px;height:35%;background:rgba(255,255,255,0.25);z-index:9}
   .exp-line-h{position:absolute;top:2.6rem;left:0;width:3.2rem;height:1px;background:rgba(255,255,255,0.25);z-index:9}
   /* Right panel — vertical timeline */
-  .exp-right{display:flex;flex-direction:column;justify-content:center;padding:3rem 4rem 3rem 4rem;position:relative;min-width:0}
+  .exp-right{display:flex;flex-direction:column;justify-content:center;padding:3rem 3rem 3rem 3rem;position:relative;min-width:0}
   .exp-tl-track{position:relative;display:flex;flex-direction:column;gap:0;padding-left:2rem}
   /* the vertical spine */
   .exp-tl-track::before{content:'';position:absolute;left:0;top:8px;bottom:8px;width:1px;background:linear-gradient(to bottom,rgba(255,255,255,0.25) 0%,rgba(255,255,255,0.06) 100%)}
@@ -190,7 +190,7 @@
   .proj-cards-outer.dragging{cursor:grabbing}
   .proj-carousel-track{display:flex;align-items:center;width:100%;height:100%;will-change:transform}
   .proj-carousel-track.animating{transition:transform 0.65s cubic-bezier(0.16,1,0.3,1)}
-  .proj-card-slot{flex:0 0 min(680px,82vw);margin:0 1.5rem}
+  .proj-card-slot{flex:0 0 min(780px,88vw);margin:0 1.5rem}
 
   /* ── Numbered nav ── */
   .proj-carousel-nav{position:absolute;bottom:2.8rem;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:0;z-index:30}
@@ -287,7 +287,7 @@
   @media(min-width:1920px){html{font-size:125%}}
   @media(max-width:900px){.project-page{padding:4rem 2rem}.proj-inner{grid-template-columns:1fr;gap:2rem}.proj-right{display:none}}
   /* ── CERTIFICATIONS ── */
-  #certifications{background:#000;min-height:100vh;height:100vh;scroll-snap-align:start;scroll-snap-stop:always;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr auto;padding:4rem 5rem 2rem;border-top:1px solid rgba(255,255,255,0.05);position:relative;column-gap:4rem;overflow:hidden}
+  #certifications{background:#000;min-height:100vh;height:100vh;scroll-snap-align:start;scroll-snap-stop:always;display:grid;grid-template-columns:45% 55%;grid-template-rows:1fr auto;padding:4rem 5rem 2rem;border-top:1px solid rgba(255,255,255,0.05);position:relative;column-gap:4rem;overflow:hidden}
   #certifications .proj-line-v{position:absolute;top:0;left:3.2rem;width:1px;height:35%;background:rgba(255,255,255,0.25);z-index:9}
   #certifications .proj-line-h{position:absolute;top:2.6rem;left:0;width:3.2rem;height:1px;background:rgba(255,255,255,0.25);z-index:9}
   .cert-header{display:flex;flex-direction:column;gap:0;grid-column:1;grid-row:1;align-self:start}
@@ -332,13 +332,13 @@
 
   /* ── CONNECT ── */
   #connect{background:#e5e4e0;height:100vh;scroll-snap-align:start;scroll-snap-stop:always;overflow:clip;position:relative;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr auto;column-gap:4rem}
-  .conn-left{grid-column:1;grid-row:1;display:flex;flex-direction:column;justify-content:space-between;padding:2.6rem 3rem 3.5rem 5rem}
+  .conn-left{grid-column:1;grid-row:1;display:flex;flex-direction:column;justify-content:center;gap:2rem;padding:2.6rem 3rem 3.5rem 5rem}
   .conn-line-v{position:absolute;top:0;left:3.2rem;width:1px;height:35%;background:rgba(0,0,0,0.2);z-index:9}
   .conn-line-h{position:absolute;top:2.6rem;left:0;width:3.2rem;height:1px;background:rgba(0,0,0,0.2);z-index:9}
   .conn-num{font-family:'Space Mono',monospace;font-size:0.52rem;letter-spacing:0.28em;color:rgba(0,0,0,0.35);text-transform:uppercase;margin-bottom:0.5rem}
   .conn-heading{font-size:clamp(3rem,6vw,5.5rem);font-weight:800;letter-spacing:-0.04em;line-height:0.9;color:#0d0d0d;text-transform:uppercase;margin-bottom:1rem}
   .conn-sub{font-family:'Space Mono',monospace;font-size:0.5rem;letter-spacing:0.2em;color:rgba(0,0,0,0.45);text-transform:uppercase;line-height:2;margin-bottom:1.2rem}
-  .conn-links{display:flex;flex-direction:column;gap:0.6rem;width:100%;margin-bottom:3rem}
+  .conn-links{display:flex;flex-direction:column;gap:0.6rem;width:100%;margin-bottom:0}
   .conn-link{display:flex;align-items:center;justify-content:space-between;padding:1.4rem 1.8rem;background:#fff;border:1px solid rgba(0,0,0,0.08);border-radius:16px;text-decoration:none;box-shadow:0 4px 20px rgba(0,0,0,0.08);transition:transform 0.4s cubic-bezier(0.16,1,0.3,1),box-shadow 0.4s ease;position:relative;overflow:hidden}
   .conn-link::before{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,0.5) 50%,transparent 60%);transform:skewX(-15deg);pointer-events:none;z-index:2}
   .conn-link:hover{transform:translateY(-5px) scale(1.01);box-shadow:0 20px 50px rgba(0,0,0,0.15)}
