@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Abdul Mirsab C — Cybersecurity Graduate</title>
+<title>abdulmirsabc</title>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;700&family=Space+Mono&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet"/>
 <style>
   *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-  html{scroll-snap-type:y mandatory;scroll-behavior:smooth;font-size:clamp(14px,1.1vw,18px)}
+  html{scroll-snap-type:y mandatory;scroll-behavior:smooth}
   html,body{width:100%;height:100%;background:#000;overflow-x:hidden;font-family:'Space Grotesk',sans-serif;color:#fff}
   #landing{scroll-snap-align:start;scroll-snap-stop:always}
   #grid{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0}
@@ -283,6 +283,8 @@
   /* reveal */
   .reveal{opacity:0;transform:translateY(30px);transition:opacity 0.8s ease,transform 0.8s ease}
   .reveal.visible{opacity:1;transform:translateY(0)}
+  @media(min-width:1600px){html{font-size:112%}}
+  @media(min-width:1920px){html{font-size:125%}}
   @media(max-width:900px){.project-page{padding:4rem 2rem}.proj-inner{grid-template-columns:1fr;gap:2rem}.proj-right{display:none}}
   /* ── CERTIFICATIONS ── */
   #certifications{background:#000;min-height:100vh;height:100vh;scroll-snap-align:start;scroll-snap-stop:always;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr auto;padding:4rem 5rem 2rem;border-top:1px solid rgba(255,255,255,0.05);position:relative;column-gap:4rem;overflow:hidden}
@@ -329,13 +331,14 @@
   .clogo-anim-f{animation:floatF 4.2s ease-in-out infinite}
 
   /* ── CONNECT ── */
-  #connect{background:#e5e4e0;height:100vh;scroll-snap-align:start;scroll-snap-stop:always;overflow:clip;position:relative;padding:4rem 5rem;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr auto;column-gap:4rem}
+  #connect{background:#e5e4e0;height:100vh;scroll-snap-align:start;scroll-snap-stop:always;overflow:clip;position:relative;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr auto;column-gap:4rem}
+  .conn-left{grid-column:1;grid-row:1;display:flex;flex-direction:column;justify-content:space-between;padding:2.6rem 3rem 3.5rem 5rem}
   .conn-line-v{position:absolute;top:0;left:3.2rem;width:1px;height:35%;background:rgba(0,0,0,0.2);z-index:9}
   .conn-line-h{position:absolute;top:2.6rem;left:0;width:3.2rem;height:1px;background:rgba(0,0,0,0.2);z-index:9}
   .conn-num{font-family:'Space Mono',monospace;font-size:0.52rem;letter-spacing:0.28em;color:rgba(0,0,0,0.35);text-transform:uppercase;margin-bottom:0.5rem}
   .conn-heading{font-size:clamp(3rem,6vw,5.5rem);font-weight:800;letter-spacing:-0.04em;line-height:0.9;color:#0d0d0d;text-transform:uppercase;margin-bottom:1rem}
-  .conn-sub{font-family:'Space Mono',monospace;font-size:0.5rem;letter-spacing:0.2em;color:rgba(0,0,0,0.45);text-transform:uppercase;line-height:2;margin-bottom:3rem}
-  .conn-links{display:flex;flex-direction:column;gap:0.6rem;max-width:520px}
+  .conn-sub{font-family:'Space Mono',monospace;font-size:0.5rem;letter-spacing:0.2em;color:rgba(0,0,0,0.45);text-transform:uppercase;line-height:2;margin-bottom:1.2rem}
+  .conn-links{display:flex;flex-direction:column;gap:0.6rem;width:100%;margin-bottom:3rem}
   .conn-link{display:flex;align-items:center;justify-content:space-between;padding:1.4rem 1.8rem;background:#fff;border:1px solid rgba(0,0,0,0.08);border-radius:16px;text-decoration:none;box-shadow:0 4px 20px rgba(0,0,0,0.08);transition:transform 0.4s cubic-bezier(0.16,1,0.3,1),box-shadow 0.4s ease;position:relative;overflow:hidden}
   .conn-link::before{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,0.5) 50%,transparent 60%);transform:skewX(-15deg);pointer-events:none;z-index:2}
   .conn-link:hover{transform:translateY(-5px) scale(1.01);box-shadow:0 20px 50px rgba(0,0,0,0.15)}
@@ -350,8 +353,7 @@
   .conn-link:hover .conn-link-arrow svg{stroke:#fff}
   .conn-link-arrow svg{width:12px;height:12px;stroke:#000;fill:none;stroke-width:2;transition:stroke 0.25s}
   .conn-footer{font-family:'Space Mono',monospace;font-size:0.42rem;letter-spacing:0.15em;color:rgba(0,0,0,0.35);text-transform:uppercase;grid-column:1/3;align-self:end;padding-bottom:0.5rem}
-  .conn-left{grid-column:1;grid-row:1;display:flex;flex-direction:column;justify-content:center}
-  .conn-right{grid-column:2;grid-row:1;display:flex;flex-direction:column;justify-content:center;position:relative;z-index:5;pointer-events:all}
+  .conn-right{grid-column:2;grid-row:1;display:flex;flex-direction:column;justify-content:center;position:relative;z-index:5;pointer-events:all;padding:2.6rem 5rem 3.5rem 0}
   .conn-form-wrap{background:#111;border-radius:24px;padding:2.4rem 2.6rem;position:relative;overflow:visible;border:1px solid rgba(255,255,255,0.06);box-shadow:0 30px 80px rgba(0,0,0,0.35)}
   .conn-form-wrap::before,.conn-form-wrap::after{display:none}
   .conn-form{display:flex;flex-direction:column;gap:1rem;position:relative;z-index:1}
@@ -520,14 +522,18 @@
     .cert-row-meta,.cert-row-id{font-size:0.6rem}
 
     /* ── CONNECT ── */
-    #connect{display:flex !important;flex-direction:column !important;padding:2.5rem 1.4rem !important;gap:2rem !important;background:#e5e4e0}
-    .conn-left,.conn-right,.conn-footer{grid-column:unset !important;grid-row:unset !important;width:100%}
+    #connect{display:flex !important;flex-direction:column !important;padding:2.5rem 1.4rem 3rem !important;gap:2rem !important;background:#e5e4e0;height:auto !important;overflow:visible !important}
+    .conn-left,.conn-right,.conn-footer{grid-column:unset !important;grid-row:unset !important;width:100% !important;padding:0 !important}
+    .conn-left{justify-content:flex-start !important;gap:1.5rem !important}
     .conn-heading{font-size:clamp(1.8rem,9vw,3rem)}
-    .conn-sub{margin-bottom:1rem;font-size:0.72rem}
-
-    .conn-links{max-width:100% !important}
+    .conn-sub{margin-bottom:0.5rem !important;font-size:0.72rem}
+    .conn-links{max-width:100% !important;width:100% !important;margin-bottom:0 !important}
+    .conn-link{padding:1rem 1.2rem !important}
+    .conn-right{padding:0 !important}
+    .conn-form-wrap{padding:1.6rem 1.4rem !important;border-radius:16px !important}
     .conn-fields-row{grid-template-columns:1fr !important}
     .conn-form input{font-size:0.82rem}
+    .conn-footer{padding-bottom:0 !important}
   }
   .proj-glass-overlay{position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:0;transition:opacity 0.35s ease}
   .proj-glass-overlay.active{opacity:1}
@@ -873,9 +879,11 @@
 
   <!-- LEFT — heading + social links -->
   <div class="conn-left">
-    <p class="conn-num">(05) <span style="color:rgba(0,0,0,0.25);letter-spacing:0.1em">— connect</span></p>
-    <h2 class="conn-heading">Let's<br>Connect.</h2>
-    <p class="conn-sub">Open to opportunities &amp; collaborations.</p>
+    <div>
+      <p class="conn-num">(05) <span style="color:rgba(0,0,0,0.25);letter-spacing:0.1em">— connect</span></p>
+      <h2 class="conn-heading">Let's<br>Connect.</h2>
+      <p class="conn-sub">Open to opportunities &amp; collaborations.</p>
+    </div>
     <div class="conn-links">
 
       <a class="conn-link" href="mailto:amc.mirzab@gmail.com">
@@ -898,7 +906,7 @@
           </div>
           <div>
             <p class="conn-link-label">LinkedIn</p>
-            <p class="conn-link-value">abdul-mirsab</p>
+            <p class="conn-link-value">abdulmirsabc</p>
           </div>
         </div>
         <div class="conn-link-arrow"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></div>
@@ -911,7 +919,7 @@
           </div>
           <div>
             <p class="conn-link-label">GitHub</p>
-            <p class="conn-link-value">abdul-mirsab</p>
+            <p class="conn-link-value">Amcx007</p>
           </div>
         </div>
         <div class="conn-link-arrow"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></div>
@@ -921,6 +929,7 @@
   </div>
 
   <!-- RIGHT — contact form -->
+
   <div class="conn-right">
     <div class="conn-form-wrap">
       <form class="conn-form" id="contactForm" action="https://api.web3forms.com/submit" method="POST">
@@ -932,23 +941,19 @@
 
         <div class="conn-fields-row">
           <div class="conn-field">
-            <label for="cf-name">Name</label>
-            <input id="cf-name" name="name" type="text" placeholder="Your full name" autocomplete="off" required/>
+            <input id="cf-name" name="name" type="text" placeholder="Name" autocomplete="off" required/>
           </div>
           <div class="conn-field">
-            <label for="cf-phone">Phone No.</label>
-            <input id="cf-phone" name="phone" type="tel" placeholder="+91 00000 00000" autocomplete="off"/>
+            <input id="cf-phone" name="phone" type="tel" placeholder="Phone No." autocomplete="off"/>
           </div>
         </div>
 
         <div class="conn-field">
-          <label for="cf-email">Email</label>
-          <input id="cf-email" name="email" type="email" placeholder="you@example.com" autocomplete="off" required/>
+          <input id="cf-email" name="email" type="email" placeholder="Email" autocomplete="off" required/>
         </div>
 
         <div class="conn-field">
-          <label for="cf-msg">Message</label>
-          <input id="cf-msg" name="message" type="text" placeholder="What's on your mind?" autocomplete="off" required/>
+          <input id="cf-msg" name="message" type="text" placeholder="Message" autocomplete="off" required/>
         </div>
 
         <div class="conn-submit-wrap">
@@ -1018,7 +1023,7 @@ function makeZone(fromX, fromY) {
   return {
     points, cx, cy,
     alpha: 0, dir: 1,
-    speed: 0.0008 + Math.random() * 0.0004,
+    speed: 0.0005 + Math.random() * 0.0003,
     peak:  0.22 + Math.random() * 0.1,
     hold: 0,
     maxHold: 40 + Math.floor(Math.random() * 40),
