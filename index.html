@@ -51,7 +51,7 @@
   .about-num{font-family:'Space Mono',monospace;font-size:0.52rem;letter-spacing:0.28em;color:rgba(0,0,0,0.32);text-transform:uppercase;margin-bottom:0.5rem}
   .about-big{font-size:clamp(4rem,8vw,7.5rem);font-weight:800;letter-spacing:-0.04em;line-height:0.86;color:#0d0d0d}
   .about-mid{display:flex;flex-direction:column;gap:1.2rem;margin-bottom:12vh}
-  .about-bio{font-size:0.76rem;line-height:1.85;color:rgba(0,0,0,0.52);font-weight:400;max-width:340px}
+  .about-bio{font-size:0.92rem;line-height:1.85;color:rgba(0,0,0,0.52);font-weight:400;max-width:360px}
   .about-actions{margin-top:0.4rem;display:flex;gap:0.8rem;align-items:center;flex-wrap:wrap}
   .btn-cv{display:inline-flex;align-items:center;gap:0.8rem;padding:0.82rem 1.7rem;border:none;color:#fff;text-decoration:none;font-family:'Space Mono',monospace;font-size:0.52rem;letter-spacing:0.16em;text-transform:uppercase;transition:background 0.25s;background:#1a1a1a;cursor:pointer}
   .btn-cv:hover{background:#000}
@@ -226,7 +226,7 @@
   .proj-github-btn{display:inline-flex;align-items:center;gap:0.5rem;margin-top:1.4rem;padding:0.55rem 1.2rem;background:#000;color:#fff;border-radius:100px;border:1px solid #000;font-family:'Space Mono',monospace;font-size:0.42rem;letter-spacing:0.12em;text-transform:uppercase;text-decoration:none;transition:background 0.2s,transform 0.2s;align-self:flex-start}
   .proj-github-btn:hover{background:#333;transform:translateY(-1px)}
   .proj-github-btn svg{fill:#fff;flex-shrink:0}
-  .ptag{font-family:'Space Mono',monospace;font-size:0.42rem;letter-spacing:0.1em;color:#000;border:1px solid rgba(0,0,0,0.2);border-radius:100px;padding:0.3rem 0.8rem;white-space:nowrap}
+  .ptag{font-family:'Space Mono',monospace;font-size:0.5rem;letter-spacing:0.1em;color:#000;border:1.5px solid rgba(0,0,0,0.45);border-radius:100px;padding:0.35rem 0.9rem;white-space:nowrap}
   .proj-dots{display:none}
   .proj-scroll-hint{display:none}
   .proj-stack-wrap{display:none}
@@ -332,7 +332,7 @@
 
   /* ── CONNECT ── */
   #connect{background:#e5e4e0;height:100vh;scroll-snap-align:start;scroll-snap-stop:always;overflow:clip;position:relative;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr auto;column-gap:4rem}
-  .conn-left{grid-column:1;grid-row:1;display:flex;flex-direction:column;justify-content:center;padding:2.6rem 3rem 3.5rem 5rem}
+  .conn-left{grid-column:1;grid-row:1;display:flex;flex-direction:column;justify-content:space-between;padding:2.6rem 3rem 3.5rem 5rem}
   .conn-line-v{position:absolute;top:0;left:3.2rem;width:1px;height:35%;background:rgba(0,0,0,0.2);z-index:9}
   .conn-line-h{position:absolute;top:2.6rem;left:0;width:3.2rem;height:1px;background:rgba(0,0,0,0.2);z-index:9}
   .conn-num{font-family:'Space Mono',monospace;font-size:0.52rem;letter-spacing:0.28em;color:rgba(0,0,0,0.35);text-transform:uppercase;margin-bottom:0.5rem}
@@ -885,7 +885,8 @@
       <p class="conn-num">(05) <span style="color:rgba(0,0,0,0.25);letter-spacing:0.1em">— connect</span></p>
       <h2 class="conn-heading">Let's<br>Connect.</h2>
       <p class="conn-sub">Open to opportunities &amp; collaborations.</p>
-      <div class="conn-links" style="margin-top:2.5rem">
+    </div>
+    <div class="conn-links">
 
       <a class="conn-link" href="mailto:amc.mirzab@gmail.com">
         <div class="conn-link-left">
@@ -926,7 +927,6 @@
         <div class="conn-link-arrow"><svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg></div>
       </a>
 
-    </div>
     </div>
   </div>
 
