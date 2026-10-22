@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>abdulmirsabc</title>
+<title>Portfolio</title>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;700&family=Space+Mono&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet"/>
 <style>
   *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
@@ -190,7 +190,7 @@
   .proj-cards-outer.dragging{cursor:grabbing}
   .proj-carousel-track{display:flex;align-items:center;width:100%;height:100%;will-change:transform}
   .proj-carousel-track.animating{transition:transform 0.65s cubic-bezier(0.16,1,0.3,1)}
-  .proj-card-slot{flex:0 0 min(760px,68vw);margin:0 2rem}
+  .proj-card-slot{flex:0 0 min(760px,60vw);margin:0 2rem}
 
   /* ── Numbered nav ── */
   .proj-carousel-nav{position:absolute;bottom:2.8rem;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:0;z-index:30}
@@ -529,8 +529,12 @@
     .conn-left{justify-content:flex-start !important;gap:1.5rem !important}
     .conn-heading{font-size:clamp(1.8rem,9vw,3rem)}
     .conn-sub{margin-bottom:0.5rem !important;font-size:0.72rem}
-    .conn-links{max-width:100% !important;width:100% !important;margin-bottom:0 !important}
-    .conn-link{padding:1rem 1.2rem !important}
+    .conn-links{max-width:100% !important;width:100% !important;margin-bottom:0 !important;gap:0.7rem !important}
+    .conn-link{padding:1rem 1.2rem !important;border-radius:12px !important}
+    .conn-link-icon{width:32px !important;height:32px !important}
+    .conn-link-icon svg{width:14px !important;height:14px !important}
+    .conn-link-value{font-size:0.88rem !important}
+    .conn-link-arrow{width:22px !important;height:22px !important}
     .conn-right{padding:0 !important}
     .conn-form-wrap{padding:1.6rem 1.4rem !important;border-radius:16px !important}
     .conn-fields-row{grid-template-columns:1fr !important}
