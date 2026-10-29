@@ -412,7 +412,7 @@
   .conn-field{display:flex;flex-direction:column;gap:0.35rem}
   .conn-field label{font-family:'Space Mono',monospace;font-size:0.38rem;letter-spacing:0.2em;color:rgba(255,255,255,0.35);text-transform:uppercase}
   .conn-field input,.conn-field textarea{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:1.1rem 1.3rem;font-family:'Space Grotesk',sans-serif;font-size:0.9rem;box-sizing:border-box;color:#fff;outline:none;transition:border-color 0.2s,background 0.2s;width:100%}
-  .conn-field textarea{resize:vertical;min-height:8.5rem;line-height:1.6;display:block}
+  .conn-field textarea{resize:none;min-height:4.6rem;line-height:1.6;display:block}
   .conn-field input:focus,.conn-field textarea:focus{border-color:rgba(255,255,255,0.25);background:rgba(255,255,255,0.09)}
   .conn-field input::placeholder,.conn-field textarea::placeholder{color:rgba(255,255,255,0.2)}
   .conn-fields-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
@@ -603,7 +603,7 @@
     .conn-fields-row{grid-template-columns:1fr !important}
     .conn-form input,.conn-form textarea{font-size:0.82rem}
     .conn-form-title{font-size:1.9rem}
-    .conn-field textarea{min-height:7rem}
+    .conn-field textarea{min-height:4.4rem}
     .conn-footer{padding-bottom:0 !important}
   }
   .proj-glass-overlay{position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:0;transition:opacity 0.35s ease}
@@ -1000,7 +1000,7 @@
         </div>
 
         <div class="conn-field">
-          <textarea id="cf-msg" name="message" rows="5" placeholder="Message" required></textarea>
+          <textarea id="cf-msg" name="message" rows="2" placeholder="Message" required></textarea>
         </div>
 
         <div class="conn-submit-wrap">
