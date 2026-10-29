@@ -4,7 +4,7 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Portfolio</title>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;700&family=Space+Mono&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&family=Space+Mono&family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Sans:wght@300;400&display=swap" rel="stylesheet"/>
 <style>
   *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
   html{scroll-snap-type:y mandatory;scroll-behavior:smooth}
@@ -81,58 +81,67 @@
   .about-tag-arrow{color:rgba(0,0,0,0.22);font-size:0.6rem;font-family:sans-serif;transition:transform 0.2s,color 0.2s;flex-shrink:0;margin-left:0.5rem}
   .about-tag:hover{color:#000}
   .about-tag:hover .about-tag-arrow{transform:translate(2px,-2px);color:#000}
-  /* ── EXPERIENCE & EDUCATION ── */
-  #experience{background:#000;height:100vh;scroll-snap-align:start;scroll-snap-stop:always;overflow:hidden;position:relative;display:grid;grid-template-columns:38% 62%}
-  /* Left panel — big heading */
-  .exp-left{display:flex;flex-direction:column;justify-content:space-between;padding:2.6rem 3rem 3.5rem 5rem;border-right:1px solid rgba(255,255,255,0.07);position:relative}
-  .exp-left-num{font-family:'Space Mono',monospace;font-size:0.52rem;letter-spacing:0.28em;color:rgba(255,255,255,0.22);text-transform:uppercase;margin-bottom:0.5rem}
-  .exp-left-big{font-size:clamp(2.4rem,4.8vw,4.2rem);font-weight:800;letter-spacing:-0.04em;line-height:1;color:#fff}
-  .exp-left-sub{font-family:'Space Mono',monospace;font-size:0.5rem;letter-spacing:0.2em;color:rgba(255,255,255,0.2);text-transform:uppercase;line-height:2;max-width:220px}
-  /* decorative lines on left */
-  .exp-line-v{position:absolute;top:0;left:3.2rem;width:1px;height:35%;background:rgba(255,255,255,0.25);z-index:9}
-  .exp-line-h{position:absolute;top:2.6rem;left:0;width:3.2rem;height:1px;background:rgba(255,255,255,0.25);z-index:9}
-  /* Right panel — vertical timeline */
-  .exp-right{display:flex;flex-direction:column;justify-content:center;padding:3rem 3rem 3rem 4rem;position:relative;min-width:0}
-  .exp-tl-track{position:relative;display:flex;flex-direction:column;gap:0;padding-left:2rem}
-  /* the vertical spine */
-  .exp-tl-track::before{content:'';position:absolute;left:0;top:8px;bottom:8px;width:1px;background:linear-gradient(to bottom,rgba(255,255,255,0.25) 0%,rgba(255,255,255,0.06) 100%)}
-  .exp-tl-item{position:relative;padding:0 0 3rem 0;transition:opacity 0.6s ease,transform 0.6s ease}
-  .exp-tl-item:last-child{padding-bottom:0}
-  .exp-tl-item.tl-hidden{opacity:0;transform:translateY(12px)}
-  .exp-tl-item.tl-visible{opacity:1;transform:translateY(0)}
-  /* dot on spine — hidden, walker replaces them */
-  .exp-tl-dot{display:none}
-  /* content block */
-  .exp-tl-body{display:flex;flex-direction:column;gap:0.28rem}
-  .exp-tl-meta{display:flex;align-items:center;gap:0.8rem;margin-bottom:0.3rem;flex-wrap:wrap}
-  .exp-tl-year{font-family:'Space Mono',monospace;font-size:0.48rem;letter-spacing:0.16em;color:rgba(255,255,255,0.28);white-space:nowrap}
-  .exp-tl-badge{font-family:'Space Mono',monospace;font-size:0.38rem;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.18);border:1px solid rgba(255,255,255,0.1);padding:0.1rem 0.45rem;white-space:nowrap}
-  .exp-tl-role{font-size:1.5rem;font-weight:700;color:#fff;letter-spacing:-0.02em;line-height:1.2}
-  .exp-tl-org{font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.1em;color:rgba(255,255,255,0.3);text-transform:uppercase;margin-top:0.15rem;white-space:nowrap}
-  .exp-tl-desc{font-size:0.88rem;line-height:1.78;color:rgba(255,255,255,0.36);font-weight:300;margin-top:0.5rem;max-width:480px;word-break:normal;overflow-wrap:normal}
-  .exp-tl-tags{display:flex;gap:0.35rem;flex-wrap:wrap;margin-top:0.65rem}
-  .exp-tl-tag{font-family:'Space Mono',monospace;font-size:0.44rem;letter-spacing:0.08em;color:rgba(255,255,255,0.2);text-transform:uppercase;border:1px solid rgba(255,255,255,0.07);padding:0.12rem 0.45rem;white-space:nowrap}
-  /* ── WALKER CHARACTER ── */
-  .tl-walker{position:absolute;left:-13px;top:0;width:22px;height:40px;z-index:10;transition:top 0.7s cubic-bezier(0.4,0,0.2,1)}
-  .tl-walker svg{width:100%;height:100%;overflow:visible}
-  #wkArmL{transform-origin:9px 23px}
-  #wkArmR{transform-origin:23px 23px}
-  #wkLegL{transform-origin:12px 39px}
-  #wkLegR{transform-origin:20px 39px}
-  /* walking animation */
-  .tl-walker.walking #wkArmL{animation:wkAL 0.4s ease-in-out infinite alternate}
-  .tl-walker.walking #wkArmR{animation:wkAR 0.4s ease-in-out infinite alternate}
-  .tl-walker.walking #wkLegL{animation:wkLL 0.4s ease-in-out infinite alternate}
-  .tl-walker.walking #wkLegR{animation:wkLR 0.4s ease-in-out infinite alternate}
-  /* idle bob */
-  .tl-walker:not(.walking){animation:wkBob 2s ease-in-out infinite}
-  @keyframes wkBob{0%,100%{transform:translateY(0px)}50%{transform:translateY(-1.5px)}}
-  @keyframes wkAL{from{transform:rotate(-32deg)}to{transform:rotate(22deg)}}
-  @keyframes wkAR{from{transform:rotate(22deg)}to{transform:rotate(-32deg)}}
-  @keyframes wkLL{from{transform:rotate(-26deg)}to{transform:rotate(22deg)}}
-  @keyframes wkLR{from{transform:rotate(22deg)}to{transform:rotate(-26deg)}}
-  @keyframes hammerSwing{from{transform:rotate(-50deg)}to{transform:rotate(15deg)}}
-  .tl-walker::after{content:'';position:absolute;bottom:-3px;left:50%;transform:translateX(-50%);width:12px;height:3px;background:rgba(255,255,255,0.07);border-radius:50%;filter:blur(2px)}
+  /* ── EXPERIENCE & EDUCATION (timeline v2) ── */
+  #experience{--xp-read:42vh;--xp-ease:cubic-bezier(.2,.75,.15,1);background:#000;color:#fff;position:relative;scroll-snap-align:start;padding:2.6rem 3rem 5rem 5rem}
+  #experience .xp-line-v{position:absolute;top:0;left:3.2rem;width:1px;height:420px;background:rgba(255,255,255,0.25);z-index:9}
+  #experience .xp-line-h{position:absolute;top:2.6rem;left:0;width:3.2rem;height:1px;background:rgba(255,255,255,0.25);z-index:9}
+  #experience .xp-wrap{max-width:1240px;margin:0 auto}
+  #experience .xp-head{display:grid;grid-template-columns:minmax(0,34%) 3.5rem minmax(0,1fr);align-items:end;margin-bottom:5rem}
+  #experience .xp-l{grid-column:1 / 3}
+  #experience .xp-num{font-family:'Space Mono',monospace;font-size:0.52rem;letter-spacing:0.28em;color:rgba(255,255,255,0.22);text-transform:uppercase;margin-bottom:0.5rem}
+  #experience .xp-num span{color:rgba(255,255,255,0.25);letter-spacing:0.1em}
+  #experience .xp-title{font-size:clamp(2.4rem,4.8vw,4.2rem);font-weight:800;letter-spacing:-0.04em;line-height:1;color:#fff}
+  #experience .xp-dim{color:rgba(255,255,255,0.18)}
+  #experience .xp-sm{font-size:clamp(1.6rem,3.2vw,2.8rem)}
+  #experience .xp-sub{font-family:'Space Mono',monospace;font-size:0.5rem;letter-spacing:0.2em;color:rgba(255,255,255,0.22);text-transform:uppercase;line-height:2;margin-top:4.5rem}
+  #experience .xp-tl{position:relative;display:grid;grid-template-columns:minmax(0,34%) 3.5rem minmax(0,1fr)}
+  #experience .xp-rail{grid-column:2;grid-row:1 / 99;position:relative}
+  #experience .xp-track{position:absolute;left:50%;top:0;width:1px;background:rgba(255,255,255,0.1)}
+  #experience .xp-tail{position:absolute;left:50%;bottom:0;width:0;border-left:1px dashed rgba(255,255,255,0.25);-webkit-mask-image:linear-gradient(#000 30%,transparent);mask-image:linear-gradient(#000 30%,transparent)}
+  #experience .xp-fill{position:absolute;left:50%;top:0;width:1px;height:0;background:linear-gradient(to bottom,rgba(255,255,255,0.25),#fff)}
+  #experience .xp-dot{position:absolute;left:50%;width:9px;height:9px;margin:-4px 0 0 -4px;border-radius:50%;background:#000;border:1px solid rgba(255,255,255,0.25);transition:background .4s,border-color .4s;z-index:1}
+  #experience .xp-dot.on{background:#fff;border-color:#fff}
+  #experience .xp-dot.future{border-style:dashed}
+  #experience .xp-dot.future.on{background:#000;border-color:#fff}
+  #experience .xp-bead{position:absolute;left:50%;top:0;width:15px;height:15px;margin:-7px 0 0 -7px;border-radius:50%;background:#000;border:1px solid #fff;z-index:2}
+  #experience .xp-bead::after{content:"";position:absolute;inset:3px;border-radius:50%;background:#fff}
+  #experience .xp-bead::before{content:"";position:absolute;inset:-6px;border-radius:50%;border:1px solid #fff;opacity:0;animation:xpPulse 2.4s var(--xp-ease) infinite}
+  @keyframes xpPulse{0%{transform:scale(.6);opacity:.45}100%{transform:scale(1.6);opacity:0}}
+  #experience .xp-yr{grid-column:1;position:relative;padding-bottom:4.5rem}
+  #experience .xp-stick{position:sticky;top:calc(var(--xp-read) - 2.6rem);text-align:right;padding-right:2rem}
+  #experience .xp-n{display:block;text-transform:uppercase;font-weight:800;font-size:clamp(3.4rem,7vw,6.4rem);line-height:.9;letter-spacing:-0.05em;color:#fff;transition:color .6s var(--xp-ease)}
+  #experience .xp-c{display:block;margin-top:1rem;font-family:'Space Mono',monospace;font-size:0.5rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.22);transition:color .6s}
+  #experience .xp-yr:not(.on) .xp-n{color:rgba(255,255,255,0.1)}
+  #experience .xp-yr:not(.on) .xp-c{color:rgba(255,255,255,0.07)}
+  #experience .xp-group{grid-column:3;padding-bottom:3rem;display:flex;flex-direction:column}
+  #experience .xp-group:last-of-type{padding-bottom:1rem}
+  #experience .xp-entry{position:relative;margin-left:1.5rem;padding:0 0 2.4rem;max-width:36rem;transition:opacity .7s var(--xp-ease),transform .9s var(--xp-ease)}
+  #experience .xp-entry + .xp-entry{padding-top:2.4rem;border-top:1px solid rgba(255,255,255,0.07)}
+  #experience .xp-entry:not(.on){opacity:.3;transform:translateY(14px)}
+  #experience .xp-entry::before{content:"";position:absolute;left:calc(-1.5rem - 1.75rem);top:.3rem;width:1.75rem;height:1px;background:rgba(255,255,255,0.1);transition:background .4s}
+  #experience .xp-entry + .xp-entry::before{top:2.7rem}
+  #experience .xp-entry.on::before{background:rgba(255,255,255,0.36)}
+  #experience .xp-meta{display:flex;align-items:center;flex-wrap:wrap}
+  #experience .xp-year{font-family:'Space Mono',monospace;font-size:0.56rem;letter-spacing:0.16em;color:rgba(255,255,255,0.3);white-space:nowrap}
+  #experience .xp-badge{font-family:'Space Mono',monospace;font-size:0.56rem;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.6);white-space:nowrap}
+  #experience .xp-badge::before{content:"·";margin:0 .7rem;color:rgba(255,255,255,0.25)}
+  #experience .xp-entry h3{font-size:clamp(1.5rem,2.3vw,2rem);font-weight:700;letter-spacing:-0.01em;line-height:1.15;margin-top:.7rem;text-transform:uppercase;color:#fff}
+  #experience .xp-org{font-family:'Space Mono',monospace;font-size:0.62rem;letter-spacing:0.1em;color:rgba(255,255,255,0.3);text-transform:uppercase;margin-top:.35rem}
+  #experience .xp-d{font-family:'IBM Plex Sans',sans-serif;font-size:.98rem;font-weight:300;line-height:1.8;color:rgba(255,255,255,0.66);margin-top:.9rem;max-width:34rem;text-wrap:pretty}
+  #experience .xp-tags{display:flex;flex-wrap:wrap;gap:.45rem;margin-top:1.2rem}
+  #experience .xp-tag{font-family:'Space Mono',monospace;font-size:0.54rem;letter-spacing:0.1em;text-transform:uppercase;white-space:nowrap;background:transparent;color:rgba(255,255,255,0.65);padding:.4rem .8rem;border-radius:999px;border:1px solid rgba(255,255,255,0.16);transition:color .25s,border-color .25s}
+  #experience .xp-entry:hover .xp-tag{color:#fff;border-color:rgba(255,255,255,0.35)}
+  #experience .xp-foot{display:flex;align-items:center;gap:1rem;flex-wrap:wrap;margin-top:1.4rem}
+  #experience .xp-btn{display:inline-flex;align-items:center;gap:.8rem;padding:.82rem 1.7rem;border:1px solid rgba(255,255,255,0.3);color:#fff;text-decoration:none;font-family:'Space Mono',monospace;font-size:0.52rem;letter-spacing:0.16em;text-transform:uppercase;transition:background .25s,color .25s}
+  #experience .xp-btn:hover{background:#fff;color:#000}
+  #experience .xp-btn svg{width:12px;height:12px;stroke:currentColor;transition:transform .25s}
+  #experience .xp-btn:hover svg{transform:translateX(4px)}
+  #experience .xp-cv{font-family:'Space Mono',monospace;font-size:0.52rem;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.6);text-decoration:none;padding:.82rem .4rem;border-bottom:1px solid transparent;transition:color .25s,border-color .25s}
+  #experience .xp-cv span{display:inline-block;margin-left:.35rem;transition:transform .25s}
+  #experience .xp-cv:hover{color:#fff;border-bottom-color:rgba(255,255,255,0.4)}
+  #experience .xp-cv:hover span{transform:translate(2px,-2px)}
+  #experience .section-scroll{display:none}
+  @media (prefers-reduced-motion:reduce){#experience *{transition:none !important;animation:none !important}#experience .xp-entry:not(.on){transform:none}}
   /* legacy classes kept for scene animation */
   .section-label{font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.3em;color:rgba(255,255,255,0.3);text-transform:uppercase}
   .about-divider{height:1px;background:rgba(255,255,255,0.08)}
@@ -178,7 +187,49 @@
   .spinning{animation:wheelSpin 0.4s linear infinite}
   @keyframes wheelSpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
   /* ── PROJECTS stacked card scroll ── */
-  #projects{background:#000;padding:0;position:relative;scroll-snap-align:start;scroll-snap-stop:always;height:100vh;overflow:clip}
+  /* ── PROJECTS (card deck v2) ── */
+  #projects{--pj-ease:cubic-bezier(.2,.75,.15,1);background:#000;color:#fff;position:relative;scroll-snap-align:start;min-height:100vh;padding:2.6rem 3rem 5rem 5rem}
+  #projects .pj-wrap{max-width:1240px;margin:0 auto;overflow-x:clip}
+  #projects .pj-head{display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;flex-wrap:wrap;margin-bottom:4.4rem}
+  #projects .pj-num{font-family:'Space Mono',monospace;font-size:0.52rem;letter-spacing:0.28em;color:rgba(255,255,255,0.22);text-transform:uppercase;margin-bottom:0.5rem}
+  #projects .pj-num span{color:rgba(255,255,255,0.25);letter-spacing:0.1em}
+  #projects .pj-title{font-size:clamp(2.4rem,4.8vw,4.2rem);font-weight:800;letter-spacing:-0.04em;line-height:1;color:#fff;margin:0}
+  #projects .pj-dim{color:rgba(255,255,255,0.18)}
+  #projects .pj-hint{font-family:'Space Mono',monospace;font-size:0.56rem;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.3)}
+  #projects .pj-deckwrap{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:3rem;align-items:center}
+  #projects .pj-deck{position:relative;height:min(62vh,520px);max-width:760px;width:100%;margin-inline:auto;touch-action:pan-y;outline:none}
+  #projects .pj-deck:focus-visible{outline:1px solid rgba(255,255,255,.4);outline-offset:8px;border-radius:24px}
+  #projects .pj-card{position:absolute;inset:0;box-sizing:border-box;border-radius:22px;background:rgba(255,255,255,.035);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.14);box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 30px 60px -20px rgba(0,0,0,.9);color:#fff;padding:2.2rem 2.4rem;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;cursor:grab;user-select:none;-webkit-user-select:none;transition:transform .55s var(--pj-ease),opacity .4s,filter .4s}
+  #projects .pj-card.drag{transition:none;cursor:grabbing}
+  #projects .pj-card > *{transition:opacity .35s}
+  #projects .pj-card.back > *{opacity:0}
+  #projects .pj-top{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap}
+  #projects .pj-no{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(4.4rem,7.6vw,6.6rem);line-height:.8;letter-spacing:-0.04em;color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.45)}
+  #projects .pj-cat{font-family:'Space Mono',monospace;font-size:0.56rem;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,.62)}
+  #projects .pj-name{font-weight:800;text-transform:uppercase;letter-spacing:-0.045em;line-height:.92;font-size:clamp(2.2rem,4.6vw,4rem);margin:0;color:#fff}
+  #projects .pj-desc{font-family:'IBM Plex Sans',sans-serif;font-weight:300;font-size:1rem;line-height:1.8;color:rgba(255,255,255,.66);max-width:34rem;margin:1rem 0 0}
+  #projects .pj-bot{display:flex;justify-content:space-between;align-items:flex-end;gap:1.2rem;flex-wrap:wrap}
+  #projects .pj-tags{display:flex;flex-wrap:wrap;gap:.45rem}
+  #projects .pj-tag{font-family:'Space Mono',monospace;font-size:0.54rem;letter-spacing:0.1em;text-transform:uppercase;color:#fff;padding:.4rem .8rem;border-radius:999px;border:1px solid rgba(255,255,255,.3);white-space:nowrap}
+  #projects .pj-gh{display:inline-flex;align-items:center;gap:.6rem;padding:.8rem 1.4rem;border:1px solid #fff;color:#fff;text-decoration:none;font-family:'Space Mono',monospace;font-size:0.52rem;letter-spacing:0.16em;text-transform:uppercase;white-space:nowrap;transition:background .25s,color .25s}
+  #projects .pj-gh:hover{background:#fff;color:#000}
+  #projects .pj-gh svg{width:14px;height:14px;fill:currentColor}
+  #projects .pj-side{display:flex;flex-direction:column;align-items:center;gap:1.1rem}
+  #projects .pj-btn{position:relative;width:58px;height:58px;padding:0;border-radius:50%;border:1px solid transparent;background:none;color:rgba(255,255,255,.45);display:grid;place-items:center;overflow:hidden;isolation:isolate;cursor:pointer;transition:border-color .3s,color .3s}
+  #projects .pj-btn svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round;transition:transform .45s var(--pj-ease)}
+  #projects .pj-btn:hover{color:#fff;border-color:rgba(255,255,255,.3)}
+  #projects .pj-prev:hover svg{transform:translateX(-3px)}
+  #projects .pj-next{width:68px;height:68px;background:#fff;color:#000;border-color:#fff}
+  #projects .pj-next::before{content:"";position:absolute;inset:0;border-radius:50%;background:#d9d9d6;transform:scale(0);transition:transform .45s var(--pj-ease);z-index:-1}
+  #projects .pj-next:hover{color:#000;border-color:#fff}
+  #projects .pj-next:hover::before{transform:scale(1)}
+  #projects .pj-next:hover svg{transform:translateX(3px)}
+  #projects .pj-btn:active svg{transform:scale(.85)}
+  #projects .pj-btn:focus-visible{outline:1px solid #fff;outline-offset:3px}
+  #projects .pj-count{font-family:'Space Mono',monospace;font-size:0.8rem;font-variant-numeric:tabular-nums;color:#fff;margin:0}
+  #projects .pj-count span{color:rgba(255,255,255,.3)}
+  #projects .pj-foot{font-family:'Space Mono',monospace;font-size:0.5rem;letter-spacing:0.2em;color:rgba(255,255,255,0.22);text-transform:uppercase;line-height:2;margin-top:4.5rem}
+  @media (prefers-reduced-motion:reduce){#projects .pj-card,#projects .pj-card > *{transition:none}}
   .proj-pin-scene{position:relative;height:100vh;overflow:visible}
   .proj-top-sticky{position:absolute;top:0;left:0;right:0;z-index:20;padding:2.5rem 5rem 1.5rem;pointer-events:none}
   .proj-num{font-family:'Space Mono',monospace;font-size:0.52rem;letter-spacing:0.28em;color:rgba(255,255,255,0.3);text-transform:uppercase;margin-bottom:0.5rem}
@@ -285,12 +336,13 @@
   .reveal.visible{opacity:1;transform:translateY(0)}
   @media(max-width:900px){.project-page{padding:4rem 2rem}.proj-inner{grid-template-columns:1fr;gap:2rem}.proj-right{display:none}}
   /* ── CERTIFICATIONS ── */
-  #certifications{background:#000;min-height:100vh;height:100vh;scroll-snap-align:start;scroll-snap-stop:always;display:grid;grid-template-columns:42% 58%;grid-template-rows:1fr auto;padding:4rem 5rem 2rem 6rem;border-top:1px solid rgba(255,255,255,0.05);position:relative;column-gap:0;overflow:hidden}
+  #certifications{background:#000;min-height:100vh;height:100vh;scroll-snap-align:start;scroll-snap-stop:always;display:grid;grid-template-columns:42% 58%;grid-template-rows:1fr auto;padding:4rem 5rem 2rem 6rem;position:relative;column-gap:0;overflow:hidden}
   #certifications .proj-line-v{position:absolute;top:0;left:3.2rem;width:1px;height:35%;background:rgba(255,255,255,0.25);z-index:9}
   #certifications .proj-line-h{position:absolute;top:2.6rem;left:0;width:3.2rem;height:1px;background:rgba(255,255,255,0.25);z-index:9}
   .cert-header{display:flex;flex-direction:column;gap:0;grid-column:1;grid-row:1;align-self:start}
   .cert-num{font-family:'Space Mono',monospace;font-size:0.52rem;letter-spacing:0.28em;color:rgba(255,255,255,0.22);text-transform:uppercase;margin-bottom:0.5rem}
-  .cert-heading{font-size:clamp(1.6rem,3.2vw,2.8rem);font-weight:800;letter-spacing:-0.04em;line-height:1;color:#fff;text-transform:uppercase;margin-bottom:0.8rem}
+  .cert-heading{font-size:clamp(2.4rem,4.8vw,4.2rem);font-weight:800;letter-spacing:-0.04em;line-height:1;color:#fff;text-transform:uppercase;margin-bottom:1.2rem}
+  .cert-dim{color:rgba(255,255,255,0.18)}
   .cert-sub{font-family:'Space Mono',monospace;font-size:0.5rem;letter-spacing:0.2em;color:rgba(255,255,255,0.2);text-transform:uppercase;line-height:2;margin-bottom:2rem}
   .cert-row{display:flex;flex-direction:column;border-radius:16px;background:#fff;border:1px solid rgba(0,0,0,0.08);box-shadow:0 8px 30px rgba(0,0,0,0.1);margin-bottom:10px;opacity:0;transform:translateX(-40px);overflow:hidden;position:relative;transition:transform 0.4s cubic-bezier(0.16,1,0.3,1),box-shadow 0.4s cubic-bezier(0.16,1,0.3,1)}
   .cert-row::before{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,0.55) 50%,transparent 60%);transform:skewX(-15deg);pointer-events:none;z-index:2}
@@ -420,7 +472,7 @@
     .about-line-left,.about-line-top,.about-line-bottom,
     .about-line-photo-bottom,.about-line-photo-vert,
     .about-tags-panel,.about-line-h,
-    .exp-line-v,.exp-line-h,
+    .xp-line-v,.xp-line-h,
     .proj-line-v,.proj-line-h,
     .conn-line-v,.conn-line-h,
     .side-right,.scroll-indicator,
@@ -462,25 +514,34 @@
     .btn-cv,.btn-dl{font-size:0.48rem;padding:0.7rem 1.3rem}
 
     /* ── EXPERIENCE ── */
-    #experience{display:flex !important;flex-direction:column !important;background:#000}
-    .exp-left{
-      padding:2.5rem 1.4rem 1.5rem !important;
-      border-right:none !important;
-      border-bottom:1px solid rgba(255,255,255,0.07)
-    }
-    .exp-left-big{font-size:clamp(1.8rem,9vw,3rem)}
-    .exp-right{padding:1.8rem 1.4rem 2.5rem !important;justify-content:flex-start !important}
-    .exp-tl-track{padding-left:1.2rem}
-    .exp-tl-item{opacity:1 !important;transform:none !important;padding-bottom:2rem}
-    .exp-tl-item:last-child{padding-bottom:0}
-    .exp-tl-role{font-size:1rem}
-    .exp-tl-org{white-space:normal !important}
-    .exp-tl-desc{max-width:100% !important;font-size:0.7rem}
-    .exp-tl-tags{gap:0.3rem}
-    .exp-tl-tag{font-size:0.35rem;padding:0.1rem 0.4rem}
+    #experience{display:block !important;background:#000;padding:2.5rem 1.4rem 3rem !important}
+    #experience .xp-head{grid-template-columns:1fr;margin-bottom:2.6rem}
+    #experience .xp-l{grid-column:1}
+    #experience .xp-title{font-size:clamp(1.8rem,9vw,3rem)}
+    #experience .xp-tl{grid-template-columns:1.8rem minmax(0,1fr)}
+    #experience .xp-rail{grid-column:1}
+    #experience .xp-yr{grid-column:2;padding-bottom:0}
+    #experience .xp-stick{position:static;text-align:left;padding:0 0 1.2rem .3rem}
+    #experience .xp-n{font-size:2.6rem}
+    #experience .xp-group{grid-column:2;padding-bottom:2rem}
+    #experience .xp-entry{margin-left:.3rem}
+    #experience .xp-entry::before{left:calc(-.3rem - 1rem);width:1rem}
+    #experience .xp-entry h3{font-size:1.3rem}
+    #experience .xp-d{font-size:.86rem}
+    #experience .xp-sub{margin-top:2.6rem}
 
     /* ── PROJECTS mobile ── */
     #projects{height:auto !important;overflow:visible !important}
+    #projects{padding:2.5rem 1.4rem 3rem !important;min-height:0}
+    #projects .pj-head{margin-bottom:2.4rem}
+    #projects .pj-title{font-size:clamp(1.8rem,9vw,3rem)}
+    #projects .pj-deckwrap{grid-template-columns:minmax(0,1fr);gap:1.6rem}
+    #projects .pj-deck{height:auto}
+    #projects .pj-card{padding:1.6rem 1.4rem;gap:1.6rem}
+    #projects .pj-no{font-size:4rem}
+    #projects .pj-desc{font-size:.9rem}
+    #projects .pj-side{flex-direction:row;justify-content:center}
+    #projects .pj-foot{margin-top:2.6rem}
     .proj-pin-scene{position:static !important;height:auto !important;overflow:visible !important;padding:2.5rem 0 3rem}
     .proj-top-sticky{position:static !important;padding:0 1.4rem 2rem !important}
     .proj-cards-outer{position:static !important;display:flex !important;flex-direction:row !important;gap:0 !important;padding:0 !important;overflow:hidden !important;cursor:default !important}
@@ -500,6 +561,7 @@
 
     /* ── CERTIFICATIONS ── */
     #certifications{display:flex !important;flex-direction:column !important;padding:2.5rem 1.4rem !important;background:#000}
+    .cert-heading{font-size:clamp(1.8rem,9vw,3rem)}
     .cert-right{display:block !important;width:100% !important;height:260px !important;position:relative !important;margin-top:1rem !important;flex-shrink:0 !important}
     .cert-logo-wall{position:absolute !important;top:0 !important;left:0 !important;width:100% !important;height:100% !important}
     .cert-logo-wall .clogo-main{top:35% !important;left:38% !important}
@@ -670,142 +732,118 @@
 
 <!-- ── EXPERIENCE & EDUCATION SECTION ── -->
 <section id="experience">
+  <div class="xp-line-v"></div><div class="xp-line-h"></div>
+  <div class="xp-wrap">
+    <header class="xp-head">
+      <div class="xp-l">
+        <p class="xp-num">(02) <span>— experience &amp; education</span></p>
+        <h2 class="xp-title">EXP<span class="xp-dim xp-sm">ERIENCE</span><br><span class="xp-dim">&amp;</span> EDU<span class="xp-dim xp-sm">CATION</span></h2>
+      </div>
+    </header>
 
-  <!-- LEFT: editorial heading -->
-  <div class="exp-left">
-    <div class="exp-line-v"></div>
-    <div class="exp-line-h"></div>
-    <div>
-      <p class="exp-left-num">(02) <span style="color:rgba(255,255,255,0.25);letter-spacing:0.1em">— experience &amp; education</span></p>
-      <h2 class="exp-left-big">EXP<span style="color:rgba(255,255,255,0.18);font-size:clamp(1.6rem,3.2vw,2.8rem)">ERIENCE</span><br><span style="color:rgba(255,255,255,0.18)">&amp;</span> EDU<span style="color:rgba(255,255,255,0.18);font-size:clamp(1.6rem,3.2vw,2.8rem)">CATION</span></h2>
-    </div>
-    <p class="exp-left-sub">Internship experience<br>&amp; academic foundation<br>in cybersecurity.</p>
-  </div>
+    <div class="xp-tl" id="xpTl">
+      <div class="xp-rail" id="xpRail"><div class="xp-track"></div><div class="xp-tail"></div><div class="xp-fill"></div><div class="xp-bead"></div></div>
 
-  <!-- RIGHT: vertical timeline -->
-  <div class="exp-right" id="expRight">
-    <div class="exp-tl-track" id="expTrack">
-      <div class="exp-tl-item">
-        <div class="exp-tl-dot"></div>
-        <div class="exp-tl-body">
-          <div class="exp-tl-meta">
-            <span class="exp-tl-year">Mar 2026 — Apr 2026</span>
-            <span class="exp-tl-badge">Internship</span>
-          </div>
-          <h3 class="exp-tl-role">Cybersecurity Intern</h3>
-          <p class="exp-tl-org">Kerala Police Cyberdome · Thiruvananthapuram, KL</p>
-          <p class="exp-tl-desc">Developed foundational knowledge of cybersecurity operations, network security, and SIEM-based monitoring, with exposure to log analysis, threat detection, OSINT methodologies, and OWASP Top 10 vulnerabilities.</p>
-          <div class="exp-tl-tags">
-            <span class="exp-tl-tag">Cybersecurity Fundamentals</span>
-            <span class="exp-tl-tag">SIEM</span>
-            <span class="exp-tl-tag">OSINT</span>
-            <span class="exp-tl-tag">OWASP Top 10</span>
-          </div>
-        </div>
+      <div class="xp-yr"><div class="xp-stick"><span class="xp-n">2024</span><span class="xp-c">Year one</span></div></div>
+      <div class="xp-group">
+        <article class="xp-entry">
+          <div class="xp-meta"><span class="xp-year">2024 — 2026</span><span class="xp-badge">Education</span></div>
+          <h3>BCA — Cybersecurity</h3>
+          <p class="xp-org">Yenepoya University, Mangaluru</p>
+          <p class="xp-d">Built a strong foundation in cybersecurity, networking, Linux, ethical hacking, and cloud technologies, complemented by hands-on projects exploring threat detection, security monitoring, and real-world security challenges.</p>
+          <div class="xp-tags"><span class="xp-tag">Cybersecurity Foundations</span><span class="xp-tag">Network Fundamentals</span><span class="xp-tag">Linux</span><span class="xp-tag">Ethical Hacking</span></div>
+        </article>
       </div>
 
-      <div class="exp-tl-item" id="tlItem2">
-        <div class="exp-tl-dot"></div>
-        <div class="exp-tl-body">
-          <div class="exp-tl-meta">
-            <span class="exp-tl-year">2024 — 2026</span>
-            <span class="exp-tl-badge">Education</span>
-          </div>
-          <h3 class="exp-tl-role">BCA — Cybersecurity</h3>
-          <p class="exp-tl-org">Yenepoya University, Mangaluru</p>
-          <p class="exp-tl-desc">Built a strong foundation in cybersecurity, networking, Linux, ethical hacking, and cloud technologies, complemented by hands-on projects exploring threat detection, security monitoring, and real-world security challenges.</p>
-          <div class="exp-tl-tags">
-            <span class="exp-tl-tag">Ethical Hacking</span>
-            <span class="exp-tl-tag">Network Fundamentals</span>
-            <span class="exp-tl-tag">Linux</span>
-            <span class="exp-tl-tag">Cybersecurity Foundations</span>
-          </div>
-        </div>
+      <div class="xp-yr"><div class="xp-stick"><span class="xp-n">2026</span><span class="xp-c">Field work, then graduation</span></div></div>
+      <div class="xp-group">
+        <article class="xp-entry">
+          <div class="xp-meta"><span class="xp-year">Mar 2026 — Apr 2026</span><span class="xp-badge">Internship</span></div>
+          <h3>Cybersecurity Intern</h3>
+          <p class="xp-org">Kerala Police Cyberdome</p>
+          <p class="xp-d">Developed foundational knowledge of cybersecurity operations, network security, and SIEM-based monitoring, with exposure to log analysis, threat detection, OSINT methodologies, and OWASP Top 10 vulnerabilities.</p>
+          <div class="xp-tags"><span class="xp-tag">Cybersecurity Fundamentals</span><span class="xp-tag">SIEM</span><span class="xp-tag">OSINT</span><span class="xp-tag">OWASP Top 10</span></div>
+        </article>
+        <article class="xp-entry">
+          <div class="xp-meta"><span class="xp-year">2026</span><span class="xp-badge">Graduated</span></div>
+          <h3>Graduated</h3>
+          <p class="xp-org">Yenepoya University, Mangaluru</p>
+          <p class="xp-d">Completed the BCA in Cybersecurity, with an internship and hands-on projects behind it.</p>
+        </article>
       </div>
 
+      <div class="xp-yr"><div class="xp-stick"><span class="xp-n">Next</span><span class="xp-c">Open to work</span></div></div>
+      <div class="xp-group">
+        <article class="xp-entry">
+          <div class="xp-meta"><span class="xp-year">Now</span><span class="xp-badge">Seeking</span></div>
+          <h3>GRC or SOC Analyst</h3>
+          <p class="xp-org">Entry-level · Full-time</p>
+          <p class="xp-d">Seeking entry-level opportunities as a GRC Analyst or Security Analyst.</p>
+          <div class="xp-tags"><span class="xp-tag">GRC Analyst</span><span class="xp-tag">Cybersecurity Analyst</span></div>
+          <div class="xp-foot">
+            <a class="xp-btn" href="#connect">Get in touch <svg viewBox="0 0 12 12" fill="none" stroke-width="1.4"><path d="M1 6h10M7 2l4 4-4 4"/></svg></a>
+            <a class="xp-cv" href="mailto:amc.mirzab@gmail.com?subject=CV%20Request%20%E2%80%94%20Abdul%20Mirsab%20C">Request CV <span aria-hidden="true">↗</span></a>
+          </div>
+        </article>
+      </div>
     </div>
+    <p class="xp-sub">Internship experience<br>&amp; academic foundation<br>in cybersecurity.</p>
   </div>
-  <div class="section-scroll"><div class="section-scroll-line"></div><span>Scroll</span></div>
 </section>
 
 <!-- ── PROJECTS SECTION ── -->
-<section id="projects">
+<section id="projects" aria-label="Projects">
+  <div class="pj-wrap">
+    <header class="pj-head">
+      <div>
+        <p class="pj-num">(03) <span>— projects</span></p>
+        <h2 class="pj-title">SELECTED<br><span class="pj-dim">WORKS</span></h2>
+      </div>
+      <p class="pj-hint" id="pjHint">Drag the card · or use the arrows</p>
+    </header>
 
-  <!-- This sticky wrapper pins itself to the viewport -->
-  <div class="proj-pin-scene" id="projScene">
-    <div class="proj-line-v"></div>
-    <div class="proj-line-h"></div>
-
-    <!-- Floating header -->
-    <div class="proj-top-sticky">
-      <p class="proj-num">(03) <span style="color:rgba(255,255,255,0.22);letter-spacing:0.1em">— projects</span></p>
-      <h2 class="proj-heading">Selected Works</h2>
-      <p class="proj-sub">Personal &amp; academic projects in cybersecurity.</p>
+    <div class="pj-deckwrap">
+      <div class="pj-deck" id="pjDeck" tabindex="0" aria-roledescription="carousel" aria-label="Projects, use left and right arrow keys">
+        <article class="pj-card" aria-label="Project 1 of 2">
+          <div class="pj-top"><span class="pj-no" aria-hidden="true">01</span><span class="pj-cat">Honeypot / Threat Intelligence</span></div>
+          <div>
+            <h3 class="pj-name">Z-Bank</h3>
+            <p class="pj-desc">Design and development of a honeypot network for finance threat intelligence. Simulated banking vulnerabilities with ELK Stack log analysis to capture and visualize attacker activity in real time.</p>
+          </div>
+          <div class="pj-bot">
+            <div class="pj-tags"><span class="pj-tag">Python</span><span class="pj-tag">Web Application</span><span class="pj-tag">Docker</span><span class="pj-tag">ELK Stack</span><span class="pj-tag">Wazuh</span></div>
+            <a class="pj-gh" href="https://github.com/Amcx007/Z-Bank-Honeypot-Network-For-Finance-Threat-Intel" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>View on GitHub</a>
+          </div>
+        </article>
+        <article class="pj-card" aria-label="Project 2 of 2">
+          <div class="pj-top"><span class="pj-no" aria-hidden="true">02</span><span class="pj-cat">Security Monitoring / Incident Response</span></div>
+          <div>
+            <h3 class="pj-name">Cybersecurity Homelabs</h3>
+            <p class="pj-desc">Built a Docker-based cybersecurity homelab integrating Wazuh for security monitoring, TheHive for incident case management, and AlienVault OTX for threat intelligence enrichment, creating an integrated environment for security event analysis and incident investigation.</p>
+          </div>
+          <div class="pj-bot">
+            <div class="pj-tags"><span class="pj-tag">Docker</span><span class="pj-tag">Wazuh</span><span class="pj-tag">TheHive</span><span class="pj-tag">AlienVault OTX</span></div>
+          </div>
+        </article>
+      </div>
+      <div class="pj-side">
+        <button class="pj-btn pj-prev" id="pjPrev" type="button" aria-label="Previous project"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
+        <p class="pj-count" id="pjCount" aria-live="polite">01 <span>/ 02</span></p>
+        <button class="pj-btn pj-next" id="pjNext" type="button" aria-label="Next project"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+      </div>
     </div>
 
-    <!-- Carousel -->
-    <div class="proj-cards-outer" id="projCardsOuter">
-      <div class="proj-carousel-track" id="projTrack">
-
-        <div class="proj-card-slot" id="pk0">
-          <div class="proj-card-s">
-            <div class="proj-card-top-bar"></div>
-            <div class="proj-card-inner">
-              <span class="proj-slide-num">01 / 02</span>
-              <span class="proj-slide-cat">Honeypot / Threat Intelligence</span>
-              <h3 class="proj-slide-title">Z-BANK</h3>
-              <p class="proj-slide-desc">Design and development of a honeypot network for finance threat intelligence. Simulated banking vulnerabilities with ELK Stack log analysis to capture and visualize attacker activity in real time.</p>
-              <div class="proj-slide-tags">
-                <span class="ptag">Python</span><span class="ptag">Web Application</span><span class="ptag">Docker</span><span class="ptag">ELK Stack</span><span class="ptag">Wazuh</span>
-              </div>
-              <a class="proj-github-btn" href="https://github.com/Amcx007/Z-Bank-Honeypot-Network-For-Finance-Threat-Intel" target="_blank" rel="noopener">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
-                View on GitHub
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <div class="proj-card-slot" id="pk1">
-          <div class="proj-card-s">
-            <div class="proj-card-top-bar"></div>
-            <div class="proj-card-inner">
-              <span class="proj-slide-num">02 / 02</span>
-              <span class="proj-slide-cat">Security Monitoring / Incident Response</span>
-              <h3 class="proj-slide-title">Cybersecurity Homelabs</h3>
-              <p class="proj-slide-desc">Built a Docker-based cybersecurity homelab integrating Wazuh for security monitoring, TheHive for incident case management, and AlienVault OTX for threat intelligence enrichment, creating an integrated environment for security event analysis and incident investigation.</p>
-              <div class="proj-slide-tags">
-                <span class="ptag">Docker</span><span class="ptag">Wazuh</span><span class="ptag">TheHive</span><span class="ptag">AlienVault OTX</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-      <div class="proj-swipe-hint">
-        <svg width="16" height="8" viewBox="0 0 16 8" fill="none"><path d="M1 4h14M10 1l4 3-4 3" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        drag to explore
-        <svg width="16" height="8" viewBox="0 0 16 8" fill="none" style="transform:scaleX(-1)"><path d="M1 4h14M10 1l4 3-4 3" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </div>
-      <!-- Progress bar nav -->
-      <div class="proj-carousel-nav" id="projNav">
-        <div id="projDots" style="display:flex;gap:0.8rem"></div>
-      </div>
-    </div>
+    <p class="pj-foot">Personal &amp; academic projects<br>in cybersecurity.</p>
   </div>
-
 </section>
 
 <!-- ── CERTIFICATIONS SECTION ── -->
 <section id="certifications">
-  <div class="proj-line-v"></div>
-  <div class="proj-line-h"></div>
 
   <!-- Header on left, logos on right -->
   <div class="cert-header">
     <p class="cert-num">(04) <span style="color:rgba(255,255,255,0.25);letter-spacing:0.1em">— certifications</span></p>
-    <h2 class="cert-heading">CREDENTIALS</h2>
+    <h2 class="cert-heading">VERIFIED<br><span class="cert-dim">CREDENTIALS</span></h2>
     <p class="cert-sub">Earned &amp; in progress.</p>
     <div class="cert-row earned">
       <div class="cert-row-top-bar"></div>
@@ -1520,6 +1558,125 @@ async function handleContactSubmit(e) {
   } else {
     initForm();
   }
+})();
+
+/* ── EXPERIENCE TIMELINE (v2) ── */
+(function(){
+  const sec = document.getElementById('experience');
+  const tl = document.getElementById('xpTl'), rail = document.getElementById('xpRail');
+  if (!sec || !tl || !rail) return;
+  const track = rail.querySelector('.xp-track'), tail = rail.querySelector('.xp-tail');
+  const fill = rail.querySelector('.xp-fill'), bead = rail.querySelector('.xp-bead');
+  const entries = [...tl.querySelectorAll('.xp-entry')], years = [...tl.querySelectorAll('.xp-yr')];
+  const small = matchMedia('(max-width:768px)');
+  let nodes = [], dots = [], ticking = false;
+  const readPx = () => innerHeight * (small.matches ? .55 : .42);
+
+  function layout(){
+    nodes = entries.map(e => e.offsetTop + (e.previousElementSibling ? 43 : 5));
+    dots.forEach(d => d.remove());
+    dots = nodes.map((y, i) => { const d = document.createElement('i'); d.className = 'xp-dot' + (i === nodes.length - 1 ? ' future' : ''); d.style.top = y + 'px'; rail.appendChild(d); return d; });
+    const last = nodes[nodes.length - 1];
+    track.style.top = nodes[0] + 'px'; track.style.height = (last - nodes[0]) + 'px';
+    tail.style.top = last + 'px'; tail.style.height = Math.max(0, rail.offsetHeight - last) + 'px';
+    fill.style.top = nodes[0] + 'px';
+    update();
+  }
+  function update(){
+    ticking = false;
+    const rTop = rail.getBoundingClientRect().top;
+    const atEnd = sec.getBoundingClientRect().bottom <= innerHeight + 4;
+    const raw = atEnd ? Infinity : readPx() - rTop;
+    const last = nodes[nodes.length - 1];
+    const reach = Math.max(nodes[0], Math.min(last, raw));
+    fill.style.height = (reach - nodes[0]) + 'px';
+    bead.style.top = reach + 'px';
+    const lit = i => nodes[i] <= Math.max(raw, nodes[0]) + 1;
+    dots.forEach((d, i) => d.classList.toggle('on', lit(i)));
+    entries.forEach((e, i) => e.classList.toggle('on', lit(i)));
+    years.forEach(y => y.classList.toggle('on', y.nextElementSibling.querySelector('.xp-entry').classList.contains('on')));
+  }
+  const onScroll = () => { if (!ticking){ ticking = true; requestAnimationFrame(update); } };
+  document.addEventListener('scroll', onScroll, {passive:true, capture:true});
+  addEventListener('resize', layout);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(layout);
+  layout();
+})();
+
+/* ── PROJECTS · card deck v2 ── */
+(function(){
+  var deck = document.getElementById('pjDeck');
+  if (!deck) return;
+  var els = Array.prototype.slice.call(deck.querySelectorAll('.pj-card'));
+  var N = els.length, order = els.map(function(_, i){ return i; });
+  var countEl = document.getElementById('pjCount'), hint = document.getElementById('pjHint');
+  var fine = window.matchMedia('(hover:hover) and (pointer:fine)');
+  if (hint && !fine.matches) hint.textContent = 'Swipe the card';
+  var pad = function(n){ return (n < 10 ? '0' : '') + n; };
+
+  function fit(){
+    if (window.innerWidth <= 768){
+      deck.style.height = '0px';
+      var h = 0; els.forEach(function(el){ h = Math.max(h, el.scrollHeight); });
+      deck.style.height = h + 'px';
+    } else deck.style.height = '';
+  }
+  function layout(){
+    var o = window.innerWidth <= 768 ? .35 : 1;
+    order.forEach(function(k, pos){
+      var el = els[k];
+      el.style.zIndex = 10 - pos;
+      el.style.transform = 'translate(' + (pos * 22 * o) + 'px,' + (pos * -18) + 'px) rotate(' + (pos * 2.2 * o) + 'deg) scale(' + (1 - pos * .05) + ')';
+      el.style.opacity = pos > 2 ? 0 : 1;
+      el.style.filter = pos ? 'brightness(' + (1 - pos * .25) + ')' : 'none';
+      el.style.pointerEvents = pos ? 'none' : 'auto';
+      el.classList.toggle('back', pos > 0);
+      el.setAttribute('aria-hidden', pos ? 'true' : 'false');
+      el.querySelectorAll('a').forEach(function(a){ a.tabIndex = pos ? -1 : 0; });
+    });
+    if (countEl) countEl.innerHTML = pad(order[0] + 1) + ' <span>/ ' + pad(N) + '</span>';
+  }
+  var busy = false;
+  function next(dir){
+    if (busy) return; busy = true;
+    var top = els[order[0]];
+    top.style.transform = 'translate(' + (dir * 120) + '%,-4%) rotate(' + (dir * 18) + 'deg)';
+    top.style.opacity = 0;
+    setTimeout(function(){ order.push(order.shift()); layout(); busy = false; }, 260);
+  }
+  function prev(){ order.unshift(order.pop()); layout(); }
+
+  document.getElementById('pjNext').addEventListener('click', function(){ next(1); });
+  document.getElementById('pjPrev').addEventListener('click', prev);
+  deck.addEventListener('keydown', function(e){
+    if (e.key === 'ArrowRight'){ e.preventDefault(); next(1); }
+    if (e.key === 'ArrowLeft'){ e.preventDefault(); prev(); }
+  });
+
+  var sx = 0, sy = 0, dx = 0, dragging = false, moved = false, el = null;
+  deck.addEventListener('pointerdown', function(e){
+    el = e.target.closest('.pj-card');
+    if (!el || el !== els[order[0]] || e.target.closest('a')) return;
+    dragging = true; moved = false; sx = e.clientX; sy = e.clientY; dx = 0;
+    el.classList.add('drag'); el.setPointerCapture(e.pointerId);
+  });
+  deck.addEventListener('pointermove', function(e){
+    if (!dragging) return;
+    dx = e.clientX - sx; var dy = (e.clientY - sy) * .3;
+    if (Math.abs(dx) > 6) moved = true;
+    el.style.transform = 'translate(' + dx + 'px,' + dy + 'px) rotate(' + (dx / 18) + 'deg)';
+  });
+  function end(){
+    if (!dragging) return; dragging = false; el.classList.remove('drag');
+    if (Math.abs(dx) > 110) next(dx > 0 ? 1 : -1); else layout();
+  }
+  deck.addEventListener('pointerup', end);
+  deck.addEventListener('pointercancel', end);
+  deck.addEventListener('click', function(e){ if (moved){ e.preventDefault(); e.stopPropagation(); moved = false; } }, true);
+
+  var rt; window.addEventListener('resize', function(){ clearTimeout(rt); rt = setTimeout(function(){ fit(); layout(); }, 120); });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+  fit(); layout();
 })();
 </script>
 </body>
