@@ -187,49 +187,40 @@
   .spinning{animation:wheelSpin 0.4s linear infinite}
   @keyframes wheelSpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
   /* ── PROJECTS stacked card scroll ── */
-  /* ── PROJECTS (card deck v2) ── */
-  #projects{--pj-ease:cubic-bezier(.2,.75,.15,1);background:#000;color:#fff;position:relative;scroll-snap-align:start;min-height:100vh;padding:4rem 5rem 5rem 6rem}
-  #projects .pj-wrap{max-width:none;margin:0;overflow-x:clip}
-  #projects .pj-head{display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;flex-wrap:wrap;margin-bottom:4.4rem}
-  #projects .pj-num{font-family:'Space Mono',monospace;font-size:0.52rem;letter-spacing:0.28em;color:rgba(255,255,255,0.22);text-transform:uppercase;margin-bottom:0.5rem}
-  #projects .pj-num span{color:rgba(255,255,255,0.25);letter-spacing:0.1em}
-  #projects .pj-title{font-size:clamp(2.4rem,4.8vw,4.2rem);font-weight:800;letter-spacing:-0.04em;line-height:1;color:#fff;margin:0}
-  #projects .pj-dim{color:rgba(255,255,255,0.18)}
-  #projects .pj-hint{font-family:'Space Mono',monospace;font-size:0.56rem;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.3)}
-  #projects .pj-deckwrap{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:3rem;align-items:center}
-  #projects .pj-deck{position:relative;height:min(62vh,520px);max-width:900px;width:100%;margin-inline:auto;touch-action:pan-y;outline:none}
-  #projects .pj-deck:focus-visible{outline:1px solid rgba(255,255,255,.4);outline-offset:8px;border-radius:24px}
-  #projects .pj-card{position:absolute;inset:0;box-sizing:border-box;border-radius:22px;background:rgba(255,255,255,.035);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.14);box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 30px 60px -20px rgba(0,0,0,.9);color:#fff;padding:2.2rem 2.4rem;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;cursor:grab;user-select:none;-webkit-user-select:none;transition:transform .55s var(--pj-ease),opacity .4s,filter .4s}
-  #projects .pj-card.drag{transition:none;cursor:grabbing}
-  #projects .pj-card > *{transition:opacity .35s}
-  #projects .pj-card.back > *{opacity:0}
-  #projects .pj-top{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap}
-  #projects .pj-no{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(4.4rem,7.6vw,6.6rem);line-height:.8;letter-spacing:-0.04em;color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.45)}
-  #projects .pj-cat{font-family:'Space Mono',monospace;font-size:0.56rem;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,.62)}
-  #projects .pj-name{font-weight:800;text-transform:uppercase;letter-spacing:-0.045em;line-height:.92;font-size:clamp(2.2rem,4.6vw,4rem);margin:0;color:#fff}
-  #projects .pj-desc{font-family:'IBM Plex Sans',sans-serif;font-weight:300;font-size:1rem;line-height:1.8;color:rgba(255,255,255,.66);max-width:40rem;margin:1rem 0 0}
-  #projects .pj-bot{display:flex;justify-content:space-between;align-items:flex-end;gap:1.2rem;flex-wrap:wrap}
-  #projects .pj-tags{display:flex;flex-wrap:wrap;gap:.45rem}
-  #projects .pj-tag{font-family:'Space Mono',monospace;font-size:0.54rem;letter-spacing:0.1em;text-transform:uppercase;color:#fff;padding:.4rem .8rem;border-radius:999px;border:1px solid rgba(255,255,255,.3);white-space:nowrap}
-  #projects .pj-gh{display:inline-flex;align-items:center;gap:.6rem;padding:.8rem 1.4rem;border:1px solid #fff;color:#fff;text-decoration:none;font-family:'Space Mono',monospace;font-size:0.52rem;letter-spacing:0.16em;text-transform:uppercase;white-space:nowrap;transition:background .25s,color .25s}
-  #projects .pj-gh:hover{background:#fff;color:#000}
-  #projects .pj-gh svg{width:14px;height:14px;fill:currentColor}
-  #projects .pj-side{display:flex;flex-direction:column;align-items:center;gap:1.1rem}
-  #projects .pj-btn{position:relative;width:58px;height:58px;padding:0;border-radius:50%;border:1px solid transparent;background:none;color:rgba(255,255,255,.45);display:grid;place-items:center;overflow:hidden;isolation:isolate;cursor:pointer;transition:border-color .3s,color .3s}
-  #projects .pj-btn svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round;transition:transform .45s var(--pj-ease)}
-  #projects .pj-btn:hover{color:#fff;border-color:rgba(255,255,255,.3)}
-  #projects .pj-prev:hover svg{transform:translateX(-3px)}
-  #projects .pj-next{width:68px;height:68px;background:#fff;color:#000;border-color:#fff}
-  #projects .pj-next::before{content:"";position:absolute;inset:0;border-radius:50%;background:#d9d9d6;transform:scale(0);transition:transform .45s var(--pj-ease);z-index:-1}
-  #projects .pj-next:hover{color:#000;border-color:#fff}
-  #projects .pj-next:hover::before{transform:scale(1)}
-  #projects .pj-next:hover svg{transform:translateX(3px)}
-  #projects .pj-btn:active svg{transform:scale(.85)}
-  #projects .pj-btn:focus-visible{outline:1px solid #fff;outline-offset:3px}
-  #projects .pj-count{font-family:'Space Mono',monospace;font-size:0.8rem;font-variant-numeric:tabular-nums;color:#fff;margin:0}
-  #projects .pj-count span{color:rgba(255,255,255,.3)}
-  #projects .pj-foot{font-family:'Space Mono',monospace;font-size:0.5rem;letter-spacing:0.2em;color:rgba(255,255,255,0.22);text-transform:uppercase;line-height:2;margin-top:4.5rem}
-  @media (prefers-reduced-motion:reduce){#projects .pj-card,#projects .pj-card > *{transition:none}}
+  /* ── PROJECTS (panels v3) ── */
+  #projects{--pp-ease:cubic-bezier(.65,0,.2,1);background:#000;color:#fff;position:relative;scroll-snap-align:start;min-height:100vh;padding:4rem 5rem 5rem 6rem;display:flex;flex-direction:column;box-sizing:border-box}
+  #projects .pp-head{display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;flex-wrap:wrap;margin-bottom:3.4rem}
+  #projects .pp-num{font-family:'Space Mono',monospace;font-size:0.52rem;letter-spacing:0.28em;color:rgba(255,255,255,0.22);text-transform:uppercase;margin-bottom:0.5rem}
+  #projects .pp-num span{color:rgba(255,255,255,0.25);letter-spacing:0.1em}
+  #projects .pp-title{font-size:clamp(2.4rem,4.8vw,4.2rem);font-weight:800;letter-spacing:-0.04em;line-height:1;color:#fff;margin:0}
+  #projects .pp-dim{color:rgba(255,255,255,0.18)}
+  #projects .pp-hint{font-family:'Space Mono',monospace;font-size:0.56rem;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.3)}
+  #projects .pp-panels{display:flex;gap:10px;flex:1;min-height:520px;max-height:640px}
+  #projects .pp-p{position:relative;flex:1 1 0;min-width:0;border-radius:22px;background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.14);overflow:hidden;color:#fff;transition:flex-grow .9s var(--pp-ease),background .6s var(--pp-ease),color .6s var(--pp-ease),border-color .6s}
+  #projects .pp-p.open{flex-grow:5;background:#e5e4e0;color:#0d0d0d;border-color:#e5e4e0}
+  #projects .pp-p:not(.open):hover{background:rgba(255,255,255,.07)}
+  #projects .pp-hit{position:absolute;inset:0;z-index:1;border-radius:inherit;background:none;border:0;padding:0;cursor:pointer}
+  #projects .pp-hit:focus-visible{outline:1px solid #fff;outline-offset:-4px}
+  #projects .pp-p.open .pp-hit{pointer-events:none}
+  #projects .pp-cno{position:absolute;top:1.5rem;left:1.4rem;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:2.4rem;line-height:.8;letter-spacing:-.04em;color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.45);transition:opacity .4s}
+  #projects .pp-vname{position:absolute;left:1.3rem;bottom:1.5rem;writing-mode:vertical-rl;transform:rotate(180deg);font-weight:800;text-transform:uppercase;font-size:clamp(1.4rem,2vw,1.8rem);letter-spacing:-.04em;line-height:1;white-space:nowrap;transition:opacity .4s}
+  #projects .pp-vcat{position:absolute;left:4.2rem;bottom:1.6rem;writing-mode:vertical-rl;transform:rotate(180deg);font-family:'Space Mono',monospace;font-size:0.56rem;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,.45);white-space:nowrap;transition:opacity .4s}
+  #projects .pp-p.open .pp-cno,#projects .pp-p.open .pp-vname,#projects .pp-p.open .pp-vcat{opacity:0}
+  #projects .pp-body{position:absolute;inset:0;padding:clamp(1.6rem,3vw,2.8rem);display:flex;flex-direction:column;justify-content:space-between;min-width:min(720px,70vw);box-sizing:border-box;opacity:0;transform:translateY(14px);transition:opacity .35s,transform .35s;pointer-events:none}
+  #projects .pp-p.open .pp-body{opacity:1;transform:none;transition:opacity .7s .35s,transform .9s .35s var(--pp-ease);pointer-events:auto}
+  #projects .pp-top{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem}
+  #projects .pp-bno{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(4.4rem,8vw,7rem);line-height:.8;letter-spacing:-.04em;color:transparent;-webkit-text-stroke:1px rgba(13,13,13,.5)}
+  #projects .pp-cat{font-family:'Space Mono',monospace;font-size:0.56rem;letter-spacing:0.16em;text-transform:uppercase;color:rgba(13,13,13,.45);padding-top:.4rem;text-align:right}
+  #projects .pp-name{font-weight:800;text-transform:uppercase;letter-spacing:-.045em;line-height:.92;font-size:clamp(2.2rem,4.4vw,3.8rem);margin:0;color:#0d0d0d}
+  #projects .pp-d{font-family:'IBM Plex Sans',sans-serif;font-weight:400;font-size:1rem;line-height:1.75;color:rgba(13,13,13,.68);max-width:40rem;margin:1rem 0 0}
+  #projects .pp-bot{display:flex;justify-content:space-between;align-items:flex-end;gap:1.2rem;flex-wrap:wrap;margin-top:1.6rem;padding-top:1.3rem;border-top:1px solid rgba(13,13,13,.14)}
+  #projects .pp-tags{display:flex;flex-wrap:wrap;gap:.45rem}
+  #projects .pp-tag{font-family:'Space Mono',monospace;font-size:0.54rem;letter-spacing:0.1em;text-transform:uppercase;color:#0d0d0d;padding:.4rem .8rem;border-radius:999px;border:1px solid rgba(13,13,13,.28);white-space:nowrap}
+  #projects .pp-gh{display:inline-flex;align-items:center;gap:.6rem;padding:.8rem 1.4rem;background:#0d0d0d;color:#e5e4e0;text-decoration:none;font-family:'Space Mono',monospace;font-size:0.52rem;letter-spacing:0.16em;text-transform:uppercase;white-space:nowrap;transition:background .25s}
+  #projects .pp-gh:hover{background:#333}
+  #projects .pp-gh svg{width:14px;height:14px;fill:currentColor}
+  #projects .pp-foot{font-family:'Space Mono',monospace;font-size:0.5rem;letter-spacing:0.2em;color:rgba(255,255,255,0.22);text-transform:uppercase;line-height:2;margin-top:3rem}
+  @media (prefers-reduced-motion:reduce){#projects .pp-p,#projects .pp-body,#projects .pp-p.open .pp-body{transition:none}}
   .proj-pin-scene{position:relative;height:100vh;overflow:visible}
   .proj-top-sticky{position:absolute;top:0;left:0;right:0;z-index:20;padding:2.5rem 5rem 1.5rem;pointer-events:none}
   .proj-num{font-family:'Space Mono',monospace;font-size:0.52rem;letter-spacing:0.28em;color:rgba(255,255,255,0.3);text-transform:uppercase;margin-bottom:0.5rem}
@@ -534,15 +525,19 @@
     /* ── PROJECTS mobile ── */
     #projects{height:auto !important;overflow:visible !important}
     #projects{padding:2.5rem 1.4rem 3rem !important;min-height:0}
-    #projects .pj-head{margin-bottom:2.4rem}
-    #projects .pj-title{font-size:clamp(1.8rem,9vw,3rem)}
-    #projects .pj-deckwrap{grid-template-columns:minmax(0,1fr);gap:1.6rem}
-    #projects .pj-deck{height:auto}
-    #projects .pj-card{padding:1.6rem 1.4rem;gap:1.6rem}
-    #projects .pj-no{font-size:4rem}
-    #projects .pj-desc{font-size:.9rem}
-    #projects .pj-side{flex-direction:row;justify-content:center}
-    #projects .pj-foot{margin-top:2.6rem}
+    #projects .pp-head{margin-bottom:2rem}
+    #projects .pp-title{font-size:clamp(1.8rem,9vw,3rem)}
+    #projects .pp-panels{flex-direction:column;max-height:none;min-height:0;gap:8px}
+    #projects .pp-p{flex:none;height:88px;transition:height .8s var(--pp-ease),background .6s,color .6s,border-color .6s}
+    #projects .pp-p.open{height:auto}
+    #projects .pp-cno{top:50%;translate:0 -50%;left:1.2rem;font-size:2rem}
+    #projects .pp-vname{writing-mode:horizontal-tb;transform:none;left:4.6rem;right:1.2rem;bottom:auto;top:50%;translate:0 -50%;font-size:1.1rem;line-height:1.1;white-space:normal}
+    #projects .pp-vcat{display:none}
+    #projects .pp-body{position:relative;min-width:0;padding:1.5rem 1.3rem 1.6rem;display:none;gap:1.4rem}
+    #projects .pp-p.open .pp-body{display:flex}
+    #projects .pp-bno{font-size:3.6rem}
+    #projects .pp-d{font-size:.92rem}
+    #projects .pp-foot{margin-top:2.6rem}
     .proj-pin-scene{position:static !important;height:auto !important;overflow:visible !important;padding:2.5rem 0 3rem}
     .proj-top-sticky{position:static !important;padding:0 1.4rem 2rem !important}
     .proj-cards-outer{position:static !important;display:flex !important;flex-direction:row !important;gap:0 !important;padding:0 !important;overflow:hidden !important;cursor:default !important}
@@ -796,48 +791,50 @@
 
 <!-- ── PROJECTS SECTION ── -->
 <section id="projects" aria-label="Projects">
-  <div class="pj-wrap">
-    <header class="pj-head">
-      <div>
-        <p class="pj-num">(03) <span>— projects</span></p>
-        <h2 class="pj-title">SELECTED<br><span class="pj-dim">WORKS</span></h2>
-      </div>
-      <p class="pj-hint" id="pjHint">Drag the card · or use the arrows</p>
-    </header>
-
-    <div class="pj-deckwrap">
-      <div class="pj-deck" id="pjDeck" tabindex="0" aria-roledescription="carousel" aria-label="Projects, use left and right arrow keys">
-        <article class="pj-card" aria-label="Project 1 of 2">
-          <div class="pj-top"><span class="pj-no" aria-hidden="true">01</span><span class="pj-cat">Honeypot / Threat Intelligence</span></div>
-          <div>
-            <h3 class="pj-name">Z-Bank</h3>
-            <p class="pj-desc">Design and development of a honeypot network for finance threat intelligence. Simulated banking vulnerabilities with ELK Stack log analysis to capture and visualize attacker activity in real time.</p>
-          </div>
-          <div class="pj-bot">
-            <div class="pj-tags"><span class="pj-tag">Python</span><span class="pj-tag">Web Application</span><span class="pj-tag">Docker</span><span class="pj-tag">ELK Stack</span><span class="pj-tag">Wazuh</span></div>
-            <a class="pj-gh" href="https://github.com/Amcx007/Z-Bank-Honeypot-Network-For-Finance-Threat-Intel" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>View on GitHub</a>
-          </div>
-        </article>
-        <article class="pj-card" aria-label="Project 2 of 2">
-          <div class="pj-top"><span class="pj-no" aria-hidden="true">02</span><span class="pj-cat">Security Monitoring / Incident Response</span></div>
-          <div>
-            <h3 class="pj-name">Cybersecurity Homelabs</h3>
-            <p class="pj-desc">Built a Docker-based cybersecurity homelab integrating Wazuh for security monitoring, TheHive for incident case management, and AlienVault OTX for threat intelligence enrichment, creating an integrated environment for security event analysis and incident investigation.</p>
-          </div>
-          <div class="pj-bot">
-            <div class="pj-tags"><span class="pj-tag">Docker</span><span class="pj-tag">Wazuh</span><span class="pj-tag">TheHive</span><span class="pj-tag">AlienVault OTX</span></div>
-          </div>
-        </article>
-      </div>
-      <div class="pj-side">
-        <button class="pj-btn pj-prev" id="pjPrev" type="button" aria-label="Previous project"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
-        <p class="pj-count" id="pjCount" aria-live="polite">01 <span>/ 02</span></p>
-        <button class="pj-btn pj-next" id="pjNext" type="button" aria-label="Next project"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
-      </div>
+  <header class="pp-head">
+    <div>
+      <p class="pp-num">(03) <span>— projects</span></p>
+      <h2 class="pp-title">SELECTED<br><span class="pp-dim">WORKS</span></h2>
     </div>
+    <p class="pp-hint" id="ppHint">Hover or tap a panel</p>
+  </header>
 
-    <p class="pj-foot">Personal &amp; academic projects<br>in cybersecurity.</p>
+  <div class="pp-panels">
+    <article class="pp-p open">
+      <button class="pp-hit" type="button" aria-label="Open Z-Bank"></button>
+      <span class="pp-cno" aria-hidden="true">01</span>
+      <span class="pp-vname">Z-Bank Honeypot</span><span class="pp-vcat">Honeypot / Threat Intelligence</span>
+      <div class="pp-body">
+        <div class="pp-top"><span class="pp-bno" aria-hidden="true">01</span><span class="pp-cat">Honeypot / Threat Intelligence</span></div>
+        <div>
+          <h3 class="pp-name">Z-Bank</h3>
+          <p class="pp-d">Design and development of a honeypot network for finance threat intelligence. Simulated banking vulnerabilities with ELK Stack log analysis to capture and visualize attacker activity in real time.</p>
+          <div class="pp-bot">
+            <div class="pp-tags"><span class="pp-tag">Python</span><span class="pp-tag">Web Application</span><span class="pp-tag">Docker</span><span class="pp-tag">ELK Stack</span><span class="pp-tag">Wazuh</span></div>
+            <a class="pp-gh" href="https://github.com/Amcx007/Z-Bank-Honeypot-Network-For-Finance-Threat-Intel" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>View on GitHub</a>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="pp-p">
+      <button class="pp-hit" type="button" aria-label="Open Cybersecurity Homelabs"></button>
+      <span class="pp-cno" aria-hidden="true">02</span>
+      <span class="pp-vname">Cybersecurity Homelabs</span><span class="pp-vcat">Security Monitoring / Incident Response</span>
+      <div class="pp-body">
+        <div class="pp-top"><span class="pp-bno" aria-hidden="true">02</span><span class="pp-cat">Security Monitoring / Incident Response</span></div>
+        <div>
+          <h3 class="pp-name">Cybersecurity Homelabs</h3>
+          <p class="pp-d">Built a Docker-based cybersecurity homelab integrating Wazuh for security monitoring, TheHive for incident case management, and AlienVault OTX for threat intelligence enrichment, creating an integrated environment for security event analysis and incident investigation.</p>
+          <div class="pp-bot">
+            <div class="pp-tags"><span class="pp-tag">Docker</span><span class="pp-tag">Wazuh</span><span class="pp-tag">TheHive</span><span class="pp-tag">AlienVault OTX</span></div>
+          </div>
+        </div>
+      </div>
+    </article>
   </div>
+
+  <p class="pp-foot">Personal &amp; academic projects<br>in cybersecurity.</p>
 </section>
 
 <!-- ── CERTIFICATIONS SECTION ── -->
@@ -1606,80 +1603,19 @@ async function handleContactSubmit(e) {
   layout();
 })();
 
-/* ── PROJECTS · card deck v2 ── */
+/* ── PROJECTS · panels v3 ── */
 (function(){
-  var deck = document.getElementById('pjDeck');
-  if (!deck) return;
-  var els = Array.prototype.slice.call(deck.querySelectorAll('.pj-card'));
-  var N = els.length, order = els.map(function(_, i){ return i; });
-  var countEl = document.getElementById('pjCount'), hint = document.getElementById('pjHint');
+  var ps = Array.prototype.slice.call(document.querySelectorAll('#projects .pp-p'));
+  if (!ps.length) return;
   var fine = window.matchMedia('(hover:hover) and (pointer:fine)');
-  if (hint && !fine.matches) hint.textContent = 'Swipe the card';
-  var pad = function(n){ return (n < 10 ? '0' : '') + n; };
-
-  function fit(){
-    if (window.innerWidth <= 768){
-      deck.style.height = '0px';
-      var h = 0; els.forEach(function(el){ h = Math.max(h, el.scrollHeight); });
-      deck.style.height = h + 'px';
-    } else deck.style.height = '';
-  }
-  function layout(){
-    var o = window.innerWidth <= 768 ? .35 : 1;
-    order.forEach(function(k, pos){
-      var el = els[k];
-      el.style.zIndex = 10 - pos;
-      el.style.transform = 'translate(' + (pos * 22 * o) + 'px,' + (pos * -18) + 'px) rotate(' + (pos * 2.2 * o) + 'deg) scale(' + (1 - pos * .05) + ')';
-      el.style.opacity = pos > 2 ? 0 : 1;
-      el.style.filter = pos ? 'brightness(' + (1 - pos * .25) + ')' : 'none';
-      el.style.pointerEvents = pos ? 'none' : 'auto';
-      el.classList.toggle('back', pos > 0);
-      el.setAttribute('aria-hidden', pos ? 'true' : 'false');
-      el.querySelectorAll('a').forEach(function(a){ a.tabIndex = pos ? -1 : 0; });
-    });
-    if (countEl) countEl.innerHTML = pad(order[0] + 1) + ' <span>/ ' + pad(N) + '</span>';
-  }
-  var busy = false;
-  function next(dir){
-    if (busy) return; busy = true;
-    var top = els[order[0]];
-    top.style.transform = 'translate(' + (dir * 120) + '%,-4%) rotate(' + (dir * 18) + 'deg)';
-    top.style.opacity = 0;
-    setTimeout(function(){ order.push(order.shift()); layout(); busy = false; }, 260);
-  }
-  function prev(){ order.unshift(order.pop()); layout(); }
-
-  document.getElementById('pjNext').addEventListener('click', function(){ next(1); });
-  document.getElementById('pjPrev').addEventListener('click', prev);
-  deck.addEventListener('keydown', function(e){
-    if (e.key === 'ArrowRight'){ e.preventDefault(); next(1); }
-    if (e.key === 'ArrowLeft'){ e.preventDefault(); prev(); }
+  var hint = document.getElementById('ppHint');
+  if (hint && !fine.matches) hint.textContent = 'Tap a project';
+  function open(p){ ps.forEach(function(x){ var on = x === p; x.classList.toggle('open', on); x.querySelector('.pp-hit').setAttribute('aria-expanded', on ? 'true' : 'false'); x.querySelectorAll('.pp-body a').forEach(function(a){ a.tabIndex = on ? 0 : -1; }); }); }
+  ps.forEach(function(p){
+    p.querySelector('.pp-hit').addEventListener('click', function(){ open(p); });
+    p.addEventListener('mouseenter', function(){ if (fine.matches) open(p); });
   });
-
-  var sx = 0, sy = 0, dx = 0, dragging = false, moved = false, el = null;
-  deck.addEventListener('pointerdown', function(e){
-    el = e.target.closest('.pj-card');
-    if (!el || el !== els[order[0]] || e.target.closest('a')) return;
-    dragging = true; moved = false; sx = e.clientX; sy = e.clientY; dx = 0;
-    el.classList.add('drag'); el.setPointerCapture(e.pointerId);
-  });
-  deck.addEventListener('pointermove', function(e){
-    if (!dragging) return;
-    dx = e.clientX - sx; var dy = (e.clientY - sy) * .3;
-    if (Math.abs(dx) > 6) moved = true;
-    el.style.transform = 'translate(' + dx + 'px,' + dy + 'px) rotate(' + (dx / 18) + 'deg)';
-  });
-  function end(){
-    if (!dragging) return; dragging = false; el.classList.remove('drag');
-    if (Math.abs(dx) > 110) next(dx > 0 ? 1 : -1); else layout();
-  }
-  deck.addEventListener('pointerup', end);
-  deck.addEventListener('pointercancel', end);
-  deck.addEventListener('click', function(e){ if (moved){ e.preventDefault(); e.stopPropagation(); moved = false; } }, true);
-
-  var rt; window.addEventListener('resize', function(){ clearTimeout(rt); rt = setTimeout(function(){ fit(); layout(); }, 120); });
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
-  fit(); layout();
+  open(ps.filter(function(p){ return p.classList.contains('open'); })[0] || ps[0]);
 })();
 </script>
 </body>
