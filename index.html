@@ -377,6 +377,11 @@
   }
   @media (prefers-reduced-motion:reduce){#connect *{transition:none!important}}
 
+
+  /* Safari ignores backface-visibility here, so hide whichever face is turned away */
+  #connect .card.flip .fronts,#connect .card:not(.flip) .backs{visibility:hidden}
+  #connect .fronts{transform:rotateY(0deg) translateZ(.1px)}
+  #connect nav.clist{display:block !important;justify-content:normal !important;padding:0 !important}
   #connect .cn-hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
   /* ── PROJECTS (panels v3) ── */
   #projects{--pp-ease:cubic-bezier(.65,0,.2,1);background:#000;color:#fff;position:relative;scroll-snap-align:start;min-height:100vh;padding:4rem 5rem 5rem 6rem;display:flex;flex-direction:column;box-sizing:border-box}
