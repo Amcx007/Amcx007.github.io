@@ -382,6 +382,13 @@
   #connect .card.flip .fronts,#connect .card:not(.flip) .backs{visibility:hidden}
   #connect .fronts{transform:rotateY(0deg) translateZ(.1px)}
   #connect nav.clist{display:block !important;justify-content:normal !important;padding:0 !important}
+  /* iPhone: keep the lanyard and badge from ever sitting on top of the form, and make the fields tappable */
+  #connect #contactForm{position:relative;z-index:5}
+  #connect .rig,#connect .lanyard,#connect .hw,#connect .bob{pointer-events:none}
+  #connect .holder{pointer-events:auto}
+  #connect .slotcol{z-index:1}
+  #connect input,#connect textarea{-webkit-user-select:text;user-select:text;touch-action:manipulation;-webkit-appearance:none;appearance:none;font-size:max(16px,1em)}
+  #connect .pickbtn,#connect .opt{touch-action:manipulation}
   #connect .cn-hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
   /* ── PROJECTS (panels v3) ── */
   #projects{--pp-ease:cubic-bezier(.65,0,.2,1);background:#000;color:#fff;position:relative;scroll-snap-align:start;min-height:100vh;padding:4rem 5rem 5rem 6rem;display:flex;flex-direction:column;box-sizing:border-box}
